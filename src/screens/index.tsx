@@ -1,7 +1,7 @@
 import { generateRNNScreens } from 'rnn-screens';
 import { gestureHandlerRootHOC as withGestureHandler } from 'react-native-gesture-handler';
 
-import { Main } from './main';
+// import { Main } from './main';
 import { Settings } from './settings';
 
 import {
@@ -12,11 +12,12 @@ import { Sample } from './_screen-sample';
 import { Playground } from './playground';
 import { withAppearance } from '../utils/hooks';
 import { withRedux } from '../redux/Provider';
+import FirstOnboarding from './first-onboarding';
 
 export const screens = generateRNNScreens(
   {
     Main: {
-      component: Main,
+      component: FirstOnboarding,
       options: {
         topBar: {
           // title is set in services/navigation/index.ts::configureTitleTranslations
