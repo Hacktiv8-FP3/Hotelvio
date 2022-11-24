@@ -1,4 +1,4 @@
-package clirn.hotelvio;
+package com.hactiv8.hotelvio;
 
 import android.os.Bundle;
 import androidx.annotation.Nullable;

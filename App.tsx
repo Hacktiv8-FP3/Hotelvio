@@ -18,8 +18,6 @@ export const beforeStart = async (): PVoid => {
   // 3. init services
   await Services.init();
 
-  // Navigation.registerComponent()
-
   // 4. hide splash screen
   SplashScreen.hide();
 };

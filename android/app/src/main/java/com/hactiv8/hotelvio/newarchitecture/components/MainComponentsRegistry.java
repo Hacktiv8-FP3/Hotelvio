@@ -1,4 +1,4 @@
-package clirn.hotelvio.newarchitecture.components;
+package com.hactiv8.hotelvio.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;
