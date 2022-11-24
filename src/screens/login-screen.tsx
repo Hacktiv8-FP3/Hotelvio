@@ -8,7 +8,7 @@ const intialState = {
   email: '',
   password: '',
 };
-const FirstOnboarding = () => {
+export const LoginScreen = () => {
   const [input, setInput] = useState(intialState);
   const [visible, setVisible] = useState(false);
 
@@ -53,7 +53,7 @@ const FirstOnboarding = () => {
             onValueChange={setVisible}
             style={styles.checkbox}
           />
-          <Text style={{ color: 'black' }}>Show password</Text>
+          <Text style={styles.label}>Show password</Text>
         </View>
         {/* <Button title='Sign In jdjdjdjdjj' color='#FEDE00' /> */}
         <TouchableOpacity style={styles.button}>
@@ -136,5 +136,3 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
-
-export default FirstOnboarding;
