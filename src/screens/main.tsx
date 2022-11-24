@@ -1,9 +1,9 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
-import Constants from 'expo-constants';
-import * as Application from 'expo-application';
+// import Constants from 'expo-constants';
+// import * as Application from 'expo-application';
 import { If } from '@kanzitelli/if-component';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
 import { observer } from 'mobx-react';
@@ -19,6 +19,8 @@ import { Reanimated2 } from '../components/reanimated2';
 import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { addProduct, removeProduct } from '../redux/product';
+import { ImageCard } from '../components/image-card';
+import { FlatList } from 'react-native-gesture-handler';
 
 export const Main: ScreenComponent = observer(({ componentId }) => {
   const { counter, ui } = useStores();
@@ -64,13 +66,19 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   return (
     <View flex bg-bgColor>
       <ScrollView contentInsetAdjustmentBehavior='always'>
-        <Section title='Expo'>
-          <Text text60R textColor>
-            Session ID: {Constants.sessionId}
-          </Text>
-          <Text text60R textColor>
-            App name: {Application.applicationName}
-          </Text>
+        <Section title='Kota-kota di Indonesia'>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollView}
+          >
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+          </ScrollView>
         </Section>
 
         <Section title={t.do('section.navigation.title')}>
@@ -123,4 +131,10 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
       </ScrollView>
     </View>
   );
+});
+
+const styles = StyleSheet.create({
+  scrollView: {
+    paddingTop: 8,
+  },
 });
