@@ -80,6 +80,20 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             <ImageCard />
           </ScrollView>
         </Section>
+        <Section title='Popular Destination'>
+          <ScrollView
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollView}
+          >
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+            <ImageCard />
+          </ScrollView>
+        </Section>
 
         <Section title={t.do('section.navigation.title')}>
           <BButton

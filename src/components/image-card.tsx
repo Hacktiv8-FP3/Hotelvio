@@ -2,16 +2,27 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Image, TouchableOpacity } from 'react-native-ui-lib';
 
-export const ImageCard = () => {
+interface Props {
+  src?: string;
+  text?: string;
+}
+export const ImageCard = ({
+  src = '../images/background.png',
+  text = 'Bali',
+}: Props) => {
+  console.log(src);
   return (
-    <TouchableOpacity style={[styles.card, styles.elevation]}>
+    <TouchableOpacity
+      style={[styles.card, styles.elevation]}
+      onPress={() => {}}
+    >
       <View style={styles['image-container']}>
         <Image
           source={require('../images/background.png')}
           style={styles.image}
         />
       </View>
-      <Text style={styles.text}>Bali</Text>
+      <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );
 };
