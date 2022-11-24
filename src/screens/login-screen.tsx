@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, StyleSheet, SafeAreaView, View, TextInput } from 'react-native';
 import { Checkbox, TouchableOpacity } from 'react-native-ui-lib';
+import { colors } from '../utils/color';
 
 // import { Image } from 'react-native-ui-lib';
 
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     height: '50%',
   },
   text: {
-    color: '#0064d2',
+    color: colors.blue,
   },
   image: {
     flex: 1,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 36,
     fontWeight: 'bold',
-    color: '#0064d2',
+    color: colors.blue,
     width: '60%',
     flexWrap: 'wrap',
     marginBottom: 20,
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
     borderRightColor: 'white',
     borderLeftColor: 'white',
     borderWidth: 1.5,
-    borderBottomColor: '#e5e5e5',
+    borderBottomColor: colors.grayBorder,
     color: 'black',
     fontWeight: '500',
     padding: 10,
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   checkbox: {
-    borderColor: '#0064d2',
+    borderColor: colors.blue,
     marginRight: 5,
     height: 20,
     width: 20,
@@ -120,8 +121,8 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   button: {
-    color: '#0064d2',
-    backgroundColor: '#FEDE00',
+    color: colors.blue,
+    backgroundColor: colors.yellow,
     padding: 10,
     marginTop: 10,
     borderRadius: 5,
