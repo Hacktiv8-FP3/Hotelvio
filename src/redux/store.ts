@@ -1,10 +1,11 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import { MMKV } from 'react-native-mmkv';
 import { PersistConfig, persistStore, Storage } from 'redux-persist';
 import createSagaMiddleware from 'redux-saga';
-import productReducer from './product';
+
 import persistReducer from 'redux-persist/es/persistReducer';
 import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
+import { rootReducers, RootState } from './reducer';
 
 // Setup Middlewares
 const sagaMiddleware = createSagaMiddleware();
@@ -31,12 +32,6 @@ const reduxStorage: Storage = {
     return Promise.resolve();
   },
 };
-
-const rootReducers = combineReducers({
-  products: productReducer,
-});
-
-export type RootState = ReturnType<typeof rootReducers>;
 
 const persistConfig: PersistConfig<RootState> = {
   key: 'root',

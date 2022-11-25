@@ -1,4 +1,4 @@
-package clirn.hotelvio.newarchitecture;
+package com.hactiv8.hotelvio.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import clirn.hotelvio.BuildConfig;
-import clirn.hotelvio.newarchitecture.components.MainComponentsRegistry;
-import clirn.hotelvio.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.hactiv8.hotelvio.BuildConfig;
+import com.hactiv8.hotelvio.newarchitecture.components.MainComponentsRegistry;
+import com.hactiv8.hotelvio.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

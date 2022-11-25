@@ -1,4 +1,4 @@
-package clirn.hotelvio;
+package com.hactiv8.hotelvio;
 
 import android.content.res.Configuration;
 import expo.modules.ApplicationLifecycleDispatcher;
@@ -14,7 +14,7 @@ import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import clirn.hotelvio.newarchitecture.MainApplicationReactNativeHost;
+import com.hactiv8.hotelvio.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
@@ -79,7 +79,7 @@ public class MainApplication extends NavigationApplication {
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("clirn.hotelvio.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("com.hactiv8.hotelvio.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

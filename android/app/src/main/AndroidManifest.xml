@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="clirn.hotelvio">
+  package="com.hactiv8.hotelvio">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
