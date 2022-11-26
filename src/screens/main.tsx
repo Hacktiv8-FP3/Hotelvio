@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
-// import Constants from 'expo-constants';
-// import * as Application from 'expo-application';
 import { If } from '@kanzitelli/if-component';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
 import { observer } from 'mobx-react';
@@ -18,18 +16,18 @@ import { BButton } from '../components/button';
 import { Reanimated2 } from '../components/reanimated2';
 import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
-import { addProduct, removeProduct } from '../redux/product';
 import { ImageCard } from '../components/image-card';
-import { FlatList } from 'react-native-gesture-handler';
+import { getTopDestinations } from '../redux/TopCity';
+import { httpClient } from '../services/api';
 
 export const Main: ScreenComponent = observer(({ componentId }) => {
   const { counter, ui } = useStores();
   const { t } = useServices();
 
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const { products, loading } = useAppSelector(({ products }) => products);
+  const { topCity, loading } = useAppSelector(({ topCity }) => topCity);
   const dispatch = useAppDispatch();
-  console.log('products', products);
+  console.log('topCity', topCity);
 
   // API Methods
   // const getCounterValue = useCallback(async () => {
@@ -55,9 +53,12 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   const handleCounterReset = () => counter.set('value', 0);
 
   // Start
-  // useEffect(() => {
-  //   getCounterValue();
-  // }, [componentId, getCounterValue]);
+
+  useEffect(() => {
+    console.log('config', Config.API_KEY);
+    dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   useNavigationButtonPress(handleCounterInc, componentId, navButtons.inc.id);
   useNavigationButtonPress(handleCounterDec, componentId, navButtons.dec.id);
 
@@ -72,12 +73,9 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             showsHorizontalScrollIndicator={false}
             style={styles.scrollView}
           >
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
+            {topCity.map((item, index) => (
+              <ImageCard key={index} text={item.city} />
+            ))}
           </ScrollView>
         </Section>
         <Section title='Popular Destination'>
@@ -95,7 +93,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
           </ScrollView>
         </Section>
 
-        <Section title={t.do('section.navigation.title')}>
+        {/* <Section title={t.do('section.navigation.title')}>
           <BButton
             marginV-s1
             label={t.do('section.navigation.button.push')}
@@ -133,7 +131,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
               <BButton margin-s1 label='reset' onPress={handleCounterReset} />
             </Row>
           </View>
-        </Section>
+        </Section> */}
 
         {/* <Section title="API">
           <BButton
