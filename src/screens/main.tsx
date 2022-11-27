@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { Text, View } from 'react-native-ui-lib';
+import React, { createRef, useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, TextInput } from 'react-native';
+import {
+  DateTimePicker,
+  View,
+  Incubator,
+  ExpandableSection,
+  TouchableOpacity,
+} from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
 import { If } from '@kanzitelli/if-component';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
@@ -12,22 +18,25 @@ import { useStores } from '../stores';
 import { navButtons } from '../services/navigation/buttons';
 import { Props as SampleProps } from './_screen-sample';
 import { Section } from '../components/section';
-import { BButton } from '../components/button';
-import { Reanimated2 } from '../components/reanimated2';
-import { Row } from '../components/row';
+// import { BButton } from '../components/button';
+// import { Reanimated2 } from '../components/reanimated2';
+// import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { ImageCard } from '../components/image-card';
 import { getTopDestinations } from '../redux/TopCity';
-import { httpClient } from '../services/api';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { DateTimePickerInput } from '../components/DateTimePickerInput';
+
+const { TextField } = Incubator;
 
 export const Main: ScreenComponent = observer(({ componentId }) => {
   const { counter, ui } = useStores();
   const { t } = useServices();
-
   // eslint-disable-next-line @typescript-eslint/no-shadow
-  const { topCity, loading } = useAppSelector(({ topCity }) => topCity);
+  const { topCity } = useAppSelector(({ topCity }) => topCity);
   const dispatch = useAppDispatch();
-  console.log('topCity', topCity);
+  const searchRef = createRef<TextInput>();
+  const [expanded, setExpanded] = useState(false);
 
   // API Methods
   // const getCounterValue = useCallback(async () => {
@@ -55,8 +64,8 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   // Start
 
   useEffect(() => {
-    console.log('config', Config.API_KEY);
-    dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
+    !topCity.length &&
+      dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useNavigationButtonPress(handleCounterInc, componentId, navButtons.inc.id);
@@ -67,6 +76,49 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   return (
     <View flex bg-bgColor>
       <ScrollView contentInsetAdjustmentBehavior='always'>
+        <Section title='Hello fellas 👋'>
+          <TextField
+            placeholder={'Search'}
+            ref={searchRef}
+            maxLength={30}
+            fieldStyle={styles.inputField}
+            leadingAccessory={
+              <View marginR-10>
+                <Ionicons name='search' size={20} />
+              </View>
+            }
+            trailingAccessory={
+              <TouchableOpacity
+                marginL-10
+                onPress={() => setExpanded(!expanded)}
+              >
+                <Ionicons name='ios-filter' size={20} color='#1bb65c' />
+              </TouchableOpacity>
+            }
+          />
+          <ExpandableSection expanded={expanded}>
+            <View row spread style={styles.inputField}>
+              <View row style={{ backgroundColor: '', width: '50%' }}>
+                <DateTimePicker
+                  placeholder={'Check-in Date'}
+                  mode={'date'}
+                  renderInput={() => (
+                    <DateTimePickerInput title='Check-in Date' />
+                  )}
+                />
+              </View>
+              <View row style={{ backgroundColor: '', width: '50%' }}>
+                <DateTimePicker
+                  placeholder={'Check-out Date'}
+                  mode={'date'}
+                  renderInput={() => (
+                    <DateTimePickerInput title='Check-out Date' />
+                  )}
+                />
+              </View>
+            </View>
+          </ExpandableSection>
+        </Section>
         <Section title='Kota-kota di Indonesia'>
           <ScrollView
             horizontal={true}
@@ -148,5 +200,11 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
 const styles = StyleSheet.create({
   scrollView: {
     paddingTop: 8,
+  },
+  inputField: {
+    backgroundColor: '#f5f5f5',
+    padding: 16,
+    borderRadius: 15,
+    marginTop: 16,
   },
 });
