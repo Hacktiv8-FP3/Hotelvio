@@ -3,6 +3,7 @@ import { gestureHandlerRootHOC as withGestureHandler } from 'react-native-gestur
 
 import { Main } from './main';
 import { Settings } from './settings';
+import { HotelDetail } from './hotel-detail';
 
 import {
   withBottomTab,
@@ -16,7 +17,7 @@ import { withRedux } from '../redux/Provider';
 export const screens = generateRNNScreens(
   {
     Main: {
-      component: Main,
+      component: HotelDetail,
       options: {
         topBar: {
           // title is set in services/navigation/index.ts::configureTitleTranslations
