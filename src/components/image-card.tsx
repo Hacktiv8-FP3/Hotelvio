@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Image, TouchableOpacity } from 'react-native-ui-lib';
+import { StyleSheet } from 'react-native';
+import { Image, TouchableOpacity, Text, View } from 'react-native-ui-lib';
 
 interface Props {
   src?: string;
