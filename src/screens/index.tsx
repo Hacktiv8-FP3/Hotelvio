@@ -3,6 +3,7 @@ import { gestureHandlerRootHOC as withGestureHandler } from 'react-native-gestur
 
 import { Main } from './main';
 import { Settings } from './settings';
+import { HotelDetail } from './hotel-detail';
 
 import {
   withBottomTab,
