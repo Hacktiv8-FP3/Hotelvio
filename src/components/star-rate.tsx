@@ -15,8 +15,13 @@ export const StarRate: React.FC<{ star: number; style?: {} }> = ({
       <Text style={{ fontSize: 20, fontWeight: '500', marginRight: 10 }}>
         {star}
       </Text>
-      {collect.map((item) => (
-        <MaterialIcon name='star' size={20} color={colors[item]} />
+      {collect.map((item, index) => (
+        <MaterialIcon
+          key={`star-${index}`}
+          name='star'
+          size={20}
+          color={colors[item]}
+        />
       ))}
     </View>
   );
