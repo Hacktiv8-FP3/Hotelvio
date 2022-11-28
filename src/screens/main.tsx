@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useState } from 'react';
+import React, { createRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import {
   DateTimePicker,
@@ -6,6 +6,7 @@ import {
   Incubator,
   ExpandableSection,
   TouchableOpacity,
+  Text,
 } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
 import { If } from '@kanzitelli/if-component';
@@ -26,7 +27,8 @@ import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { ImageCard } from '../components/image-card';
 import { getTopDestinations } from '../redux/TopCity';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { DateTimePickerInput } from '../components/DateTimePickerInput';
+import { Input } from '../components/Input';
+import { Modalize } from 'react-native-modalize';
 
 const { TextField } = Incubator;
 
@@ -38,6 +40,14 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   const dispatch = useAppDispatch();
   const searchRef = createRef<TextInput>();
   const [expanded, setExpanded] = useState(false);
+  const [checkInDate, setCheckInDate] = useState(new Date());
+  const [checkOutDate, setCheckOutDate] = useState(new Date());
+  const [guests, setGuests] = useState(1);
+  const modalizeRef = useRef<Modalize>(null);
+
+  const onOpenModal = () => {
+    modalizeRef.current?.open();
+  };
 
   // API Methods
   // const getCounterValue = useCallback(async () => {
@@ -101,22 +111,43 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             <View row spread style={styles.inputField}>
               <View row style={{ backgroundColor: '', width: '50%' }}>
                 <DateTimePicker
+                  migrateTextField
                   placeholder={'Check-in Date'}
                   mode={'date'}
-                  renderInput={() => (
-                    <DateTimePickerInput title='Check-in Date' />
+                  minimumDate={new Date()}
+                  value={checkInDate}
+                  onChange={(date: Date) => setCheckInDate(date)}
+                  renderInput={({ value }: { value: string }) => (
+                    <Input
+                      icon='calendar'
+                      title='Check-in Date'
+                      value={value}
+                    />
                   )}
                 />
               </View>
               <View row style={{ backgroundColor: '', width: '50%' }}>
                 <DateTimePicker
+                  migrateTextField
                   placeholder={'Check-out Date'}
                   mode={'date'}
-                  renderInput={() => (
-                    <DateTimePickerInput title='Check-out Date' />
+                  minimumDate={new Date()}
+                  value={checkOutDate}
+                  onChange={(date: Date) => setCheckOutDate(date)}
+                  renderInput={({ value }: { value: string }) => (
+                    <Input
+                      icon='calendar'
+                      title='Check-in Date'
+                      value={value}
+                    />
                   )}
                 />
               </View>
+            </View>
+            <View style={styles.inputField}>
+              <TouchableOpacity onPress={onOpenModal}>
+                <Input icon='user' value={`${guests} Persons`} />
+              </TouchableOpacity>
             </View>
           </ExpandableSection>
         </Section>
@@ -201,6 +232,9 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
           />
         </Section> */}
       </ScrollView>
+      <Modalize ref={modalizeRef} adjustToContentHeight>
+        <Text>Halo</Text>
+      </Modalize>
     </View>
   );
 });

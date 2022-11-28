@@ -3,12 +3,8 @@ import { gestureHandlerRootHOC as withGestureHandler } from 'react-native-gestur
 
 import { Main } from './main';
 import { Settings } from './settings';
-import { HotelDetail } from './hotel-detail';
 
-import {
-  withBottomTab,
-  withRightButtons,
-} from '../services/navigation/options';
+import { withBottomTab } from '../services/navigation/options';
 import { Sample } from './_screen-sample';
 import { Playground } from './playground';
 import { withAppearance } from '../utils/hooks';
@@ -19,10 +15,6 @@ export const screens = generateRNNScreens(
     Main: {
       component: Main,
       options: {
-        topBar: {
-          // title is set in services/navigation/index.ts::configureTitleTranslations
-          ...withRightButtons('inc', 'dec'),
-        },
         ...withBottomTab('Main', 'home'),
       },
     },
