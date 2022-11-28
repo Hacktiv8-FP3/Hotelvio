@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Image, TouchableOpacity, Text, View } from 'react-native-ui-lib';
+import { colors } from '../utils/color';
 
 interface Props {
   src?: string;
@@ -49,7 +50,7 @@ const styles = StyleSheet.create({
   elevation: {
     elevation: 4,
     alignSelf: 'flex-start',
-    shadowColor: '#52006A',
+    shadowColor: colors.blue,
   },
   text: {
     paddingVertical: 5,

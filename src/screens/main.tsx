@@ -11,6 +11,7 @@ import { ScreenComponent } from 'rnn-screens';
 import { If } from '@kanzitelli/if-component';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
 import { observer } from 'mobx-react';
+import { HotelCard } from '../components/hotel-card';
 
 import { screens } from '.';
 import { useServices } from '../services';
@@ -146,6 +147,12 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
           </ScrollView>
         </Section>
 
+        <Section title='Hotel'>
+          <HotelCard />
+          <HotelCard />
+          <HotelCard />
+          <HotelCard />
+        </Section>
         {/* <Section title={t.do('section.navigation.title')}>
           <BButton
             marginV-s1
