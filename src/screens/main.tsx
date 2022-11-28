@@ -125,9 +125,10 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             showsHorizontalScrollIndicator={false}
             style={styles.scrollView}
           >
-            {topCity.map((item, index) => (
-              <ImageCard key={index} text={item.city} />
-            ))}
+            {!!topCity.length &&
+              topCity.map((item, index) => (
+                <ImageCard key={index} text={item.city} />
+              ))}
           </ScrollView>
         </Section>
         <Section title='Popular Destination'>
