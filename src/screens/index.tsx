@@ -17,7 +17,7 @@ import { withRedux } from '../redux/Provider';
 export const screens = generateRNNScreens(
   {
     Main: {
-      component: HotelDetail,
+      component: Main,
       options: {
         topBar: {
           // title is set in services/navigation/index.ts::configureTitleTranslations
