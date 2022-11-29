@@ -142,7 +142,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                 />
               </Row>
             </Row>
-            <View style={[styles.inputField, styles.bgGray]}>
+            <View style={[styles.inputField, styles.bgGray]} marginV-s2>
               <TouchableOpacity onPress={onOpenModal}>
                 <Input icon='user' value={`${guests} Persons`} />
               </TouchableOpacity>
