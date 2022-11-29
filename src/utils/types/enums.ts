@@ -1,22 +1,19 @@
 const _languages = {
   system: 'System',
   en: 'EN',
-  de: 'DE',
-  ru: 'RU',
+  id: 'ID',
 } as const;
 export type Language = keyof typeof _languages;
 export type LanguageUI = typeof _languages[Language];
 export const languageToUI: Record<Language, LanguageUI> = {
   system: 'System',
   en: 'EN',
-  de: 'DE',
-  ru: 'RU',
+  id: 'ID',
 };
 export const languageUIToInternal: Record<LanguageUI, Language> = {
   System: 'system',
   EN: 'en',
-  DE: 'de',
-  RU: 'ru',
+  ID: 'id',
 };
 export const languages = Object.keys(languageToUI) as Language[];
 export const languagesUI = Object.keys(languageUIToInternal) as LanguageUI[];

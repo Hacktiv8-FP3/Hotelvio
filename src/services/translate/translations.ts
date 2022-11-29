@@ -1,6 +1,18 @@
 export const en = {
   home: {
     title: 'Home',
+    filter: {
+      search: 'Search',
+      checkIn: 'Check in Date',
+      checkOut: 'Check out Date',
+      guest: {
+        title: 'Guest',
+        adult: 'Adult',
+        children: 'Children',
+      },
+    },
+    cities: 'Kota-kota di Indonesia',
+    popular: 'Tujuan Terpopuler',
   },
   settings: {
     title: 'Settings',
@@ -20,46 +32,20 @@ export const en = {
   },
 };
 
-export const de = {
+export const id = {
   home: {
-    title: 'Startseite',
-  },
-  settings: {
-    title: 'Einstellungen',
-  },
-  example: {
-    title: 'Beispiel',
-  },
-  section: {
-    navigation: {
-      title: 'Navigation',
-      button: {
-        push: 'Schieben →',
-        show: 'Zeigen ↑',
-        back: '← Zurück',
+    title: 'Beranda',
+    filter: {
+      search: 'Cari',
+      checkIn: 'Tanggal Check in',
+      checkOut: 'Tanggal Check out',
+      guest: {
+        title: 'Tamu',
+        adult: 'Dewasa',
+        children: 'Anak-anak',
       },
     },
-  },
-};
-
-export const ru = {
-  home: {
-    title: 'Хоум',
-  },
-  settings: {
-    title: 'Настройки',
-  },
-  example: {
-    title: 'Пример',
-  },
-  section: {
-    navigation: {
-      title: 'Навигация',
-      button: {
-        push: 'Запушить →',
-        show: 'Показать ↑',
-        back: '← Назад',
-      },
-    },
+    cities: 'Cities in Indonesia',
+    popular: 'Popular Destinations',
   },
 };
