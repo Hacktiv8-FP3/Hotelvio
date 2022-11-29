@@ -1,3 +1,4 @@
+import { GuestModal } from '../components/GuestModal';
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import {
@@ -6,23 +7,15 @@ import {
   Incubator,
   ExpandableSection,
   TouchableOpacity,
-  Text,
-  Colors,
 } from 'react-native-ui-lib';
-import { iOSUIKit } from 'react-native-typography';
 import { ScreenComponent } from 'rnn-screens';
-import { If } from '@kanzitelli/if-component';
-import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
 import { observer } from 'mobx-react';
 import { HotelCard } from '../components/hotel-card';
 
 import { screens } from '.';
 import { useServices } from '../services';
-import { useStores } from '../stores';
-import { navButtons } from '../services/navigation/buttons';
 import { Props as SampleProps } from './_screen-sample';
 import { Section } from '../components/section';
-import { BButton } from '../components/button';
 import { Reanimated2 } from '../components/reanimated2';
 import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
@@ -36,9 +29,7 @@ import { colors } from '../utils/color';
 const { TextField } = Incubator;
 
 export const Main: ScreenComponent = observer(({ componentId }) => {
-  const { counter, ui } = useStores();
   const { t } = useServices();
-  // eslint-disable-next-line @typescript-eslint/no-shadow
   const { topCity } = useAppSelector(({ topCity }) => topCity);
   const dispatch = useAppDispatch();
   const searchRef = createRef<TextInput>();
@@ -215,16 +206,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
         adjustToContentHeight
         childrenStyle={{ padding: 16 }}
       >
-        <Text style={iOSUIKit.callout} marginV-s2>
-          Guests
-        </Text>
-        <Row style={[styles.inputField, styles.borderGray]} center paddingH-s7>
-          <BButton label=' - ' onPress={() => setGuests(guests - 1)} flex-1 />
-          <Text center flex-3 style={iOSUIKit.bodyEmphasized}>
-            {guests}
-          </Text>
-          <BButton label=' + ' onPress={() => setGuests(guests + 1)} flex-1 />
-        </Row>
+        <GuestModal setGuests={setGuests} guests={guests} />
       </Modalize>
     </View>
   );
