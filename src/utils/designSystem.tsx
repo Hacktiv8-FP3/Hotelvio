@@ -9,8 +9,8 @@ import { Appearance } from './types/enums';
 
 export class DesignSystem {
   static colors = {
-    primary: '#5383b8', // blue
-    secondary: '#469c57', // green
+    primary: '#1BB65C', // greeen
+    secondary: '#e8f8ef', // light green
     accent: '#fed330', // yellow
     _black: Colors.rgba(20, 20, 20, 1),
     _black2: Colors.rgba(50, 50, 50, 1),

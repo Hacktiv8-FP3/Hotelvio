@@ -7,7 +7,9 @@ import {
   ExpandableSection,
   TouchableOpacity,
   Text,
+  Colors,
 } from 'react-native-ui-lib';
+import { iOSUIKit } from 'react-native-typography';
 import { ScreenComponent } from 'rnn-screens';
 import { If } from '@kanzitelli/if-component';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
@@ -20,15 +22,16 @@ import { useStores } from '../stores';
 import { navButtons } from '../services/navigation/buttons';
 import { Props as SampleProps } from './_screen-sample';
 import { Section } from '../components/section';
-// import { BButton } from '../components/button';
-// import { Reanimated2 } from '../components/reanimated2';
-// import { Row } from '../components/row';
+import { BButton } from '../components/button';
+import { Reanimated2 } from '../components/reanimated2';
+import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { ImageCard } from '../components/image-card';
 import { getTopDestinations } from '../redux/TopCity';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input } from '../components/Input';
 import { Modalize } from 'react-native-modalize';
+import { colors } from '../utils/color';
 
 const { TextField } = Incubator;
 
@@ -68,19 +71,13 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
     screens.push<SampleProps>(componentId, 'Sample', { type: 'push' });
   const show = () => screens.show<SampleProps>('Sample', { type: 'show' });
 
-  const handleCounterDec = () => dispatch(removeProduct());
-  const handleCounterInc = () => dispatch(addProduct());
-  const handleCounterReset = () => counter.set('value', 0);
-
   // Start
-
   useEffect(() => {
     !topCity.length &&
       dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useNavigationButtonPress(handleCounterInc, componentId, navButtons.inc.id);
-  useNavigationButtonPress(handleCounterDec, componentId, navButtons.dec.id);
+  // useNavigationButtonPress(handleCounterInc, componentId, navButtons.inc.id);
+  // useNavigationButtonPress(handleCounterDec, componentId, navButtons.dec.id);
 
   // UI Methods
 
@@ -89,10 +86,11 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
       <ScrollView contentInsetAdjustmentBehavior='always'>
         <Section title='Hello fellas 👋'>
           <TextField
+            marginV-s2
             placeholder={'Search'}
             ref={searchRef}
             maxLength={30}
-            fieldStyle={styles.inputField}
+            fieldStyle={[styles.inputField, styles.bgGray]}
             leadingAccessory={
               <View marginR-10>
                 <Ionicons name='search' size={20} />
@@ -108,8 +106,8 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             }
           />
           <ExpandableSection expanded={expanded}>
-            <View row spread style={styles.inputField}>
-              <View row style={{ backgroundColor: '', width: '50%' }}>
+            <Row spread style={[styles.inputField, styles.bgGray]} marginV-s2>
+              <Row style={{ width: '50%' }}>
                 <DateTimePicker
                   migrateTextField
                   placeholder={'Check-in Date'}
@@ -125,8 +123,8 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                     />
                   )}
                 />
-              </View>
-              <View row style={{ backgroundColor: '', width: '50%' }}>
+              </Row>
+              <Row row style={{ width: '50%' }}>
                 <DateTimePicker
                   migrateTextField
                   placeholder={'Check-out Date'}
@@ -142,9 +140,9 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                     />
                   )}
                 />
-              </View>
-            </View>
-            <View style={styles.inputField}>
+              </Row>
+            </Row>
+            <View style={[styles.inputField, styles.bgGray]}>
               <TouchableOpacity onPress={onOpenModal}>
                 <Input icon='user' value={`${guests} Persons`} />
               </TouchableOpacity>
@@ -184,24 +182,12 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
           <HotelCard />
           <HotelCard />
         </Section>
-        {/* <Section title={t.do('section.navigation.title')}>
-          <BButton
-            marginV-s1
-            label={t.do('section.navigation.button.push')}
-            onPress={push}
-          />
-          <BButton
-            marginV-s1
-            label={t.do('section.navigation.button.show')}
-            onPress={show}
-          />
-        </Section>
 
         <Section title='Reanimated 2'>
           <Reanimated2 />
         </Section>
 
-        <Section title='MobX'>
+        {/* <Section title='MobX'>
           <View centerV>
             <Text marginB-s2 text60R textColor>
               App launches: {ui.appLaunches}
@@ -223,17 +209,22 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             </Row>
           </View>
         </Section> */}
-
-        {/* <Section title="API">
-          <BButton
-            margin-s1
-            label="Update counter value from API"
-            onPress={getCounterValue}
-          />
-        </Section> */}
       </ScrollView>
-      <Modalize ref={modalizeRef} adjustToContentHeight>
-        <Text>Halo</Text>
+      <Modalize
+        ref={modalizeRef}
+        adjustToContentHeight
+        childrenStyle={{ padding: 16 }}
+      >
+        <Text style={iOSUIKit.callout} marginV-s2>
+          Guests
+        </Text>
+        <Row style={[styles.inputField, styles.borderGray]} center paddingH-s7>
+          <BButton label=' - ' onPress={() => setGuests(guests - 1)} flex-1 />
+          <Text center flex-3 style={iOSUIKit.bodyEmphasized}>
+            {guests}
+          </Text>
+          <BButton label=' + ' onPress={() => setGuests(guests + 1)} flex-1 />
+        </Row>
       </Modalize>
     </View>
   );
@@ -244,9 +235,14 @@ const styles = StyleSheet.create({
     paddingTop: 8,
   },
   inputField: {
-    backgroundColor: '#f5f5f5',
     padding: 16,
     borderRadius: 15,
-    marginTop: 16,
+  },
+  bgGray: {
+    backgroundColor: colors.gray,
+  },
+  borderGray: {
+    borderColor: colors.grayBorder,
+    borderWidth: 1,
   },
 });

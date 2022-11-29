@@ -12,6 +12,7 @@ module.exports = {
         'no-undef': 'off',
         'jsx-quotes': ['error', 'prefer-single'],
         'react-native/no-inline-styles': 'off',
+        'react-hooks/exhaustive-deps': 'off',
       },
     },
   ],
