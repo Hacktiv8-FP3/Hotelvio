@@ -18,7 +18,9 @@ export const HotelCard: React.FC<{ data: any }> = ({ data }) => {
           <Text style={styles['text-category']}>{data.category}</Text>
         </View>
         <View>
-          <Text style={styles['text-price']}>${data.price}</Text>
+          <Text style={styles['text-price']}>
+            ${Number(data.price).toFixed(2)}
+          </Text>
           <Text style={styles['text-status']}>/per night</Text>
         </View>
       </View>
@@ -47,6 +49,8 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 17,
     fontWeight: '500',
+    width: 200,
+    flexWrap: 'wrap',
   },
   'text-price': {
     fontSize: 20,
