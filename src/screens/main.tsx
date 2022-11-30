@@ -16,18 +16,13 @@ import { screens } from '.';
 import { useServices } from '../services';
 import { Props as SampleProps } from './_screen-sample';
 import { Section } from '../components/section';
-import { Reanimated2 } from '../components/reanimated2';
 import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { ImageCard } from '../components/image-card';
-import { getTopDestinations } from '../redux/TopCity';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input } from '../components/Input';
 import { Modalize } from 'react-native-modalize';
 import { colors } from '../utils/color';
-import axios from 'axios';
-import { httpClient } from '../services/api';
-import { debug } from 'react-native-reanimated';
 import { getHotelByCategory } from '../redux/Property';
 
 const { TextField } = Incubator;
@@ -57,31 +52,11 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
     modalizeRef.current?.open();
   };
 
-  // API Methods
-  // const getCounterValue = useCallback(async () => {
-  //   setLoading(true);
-  //   try {
-  //     const {value} = await api.counter.get();
-
-  //     counter.set('value', value);
-  //   } catch (e) {
-  //     console.log('[ERROR]', e);
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // }, [api.counter, counter]);
-
-  // Methods
   const push = () =>
     screens.push<SampleProps>(componentId, 'Sample', { type: 'push' });
   const show = () => screens.show<SampleProps>('Sample', { type: 'show' });
 
-  // Start
-
   useEffect(() => {
-    // !topCity.length &&
-    //   dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
-
     dispatch(
       getHotelByCategory({
         category: 'bali',
@@ -102,11 +77,6 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   useEffect(() => {
     console.log(checkInDate);
   }, [checkInDate]);
-
-  // useNavigationButtonPress(handleCounterInc, componentId, navButtons.inc.id);
-  // useNavigationButtonPress(handleCounterDec, componentId, navButtons.dec.id);
-
-  // UI Methods
 
   return (
     <View flex bg-bgColor>
