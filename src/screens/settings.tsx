@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import {
   Text,
   View,
