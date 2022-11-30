@@ -5,9 +5,7 @@ import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
 // import { Props as SampleProps } from './_screen-sample';
 import { colors } from '../utils/color';
 
-export const HotelCard = () => {
-  //   const push = () =>
-  //     screens.push<SampleProps>(componentId, 'Sample', { type: 'push' });
+export const HotelCard: React.FC<{ data: any }> = ({ data }) => {
   return (
     <TouchableOpacity style={[styles.container, styles.elevation]}>
       <Image
@@ -16,11 +14,11 @@ export const HotelCard = () => {
       />
       <View style={styles['information-container']}>
         <View>
-          <Text style={styles['text-brand']}>Blue Dreams Hotel</Text>
-          <Text style={styles['text-category']}>Bali</Text>
+          <Text style={styles['text-brand']}>{data.name}</Text>
+          <Text style={styles['text-category']}>{data.category}</Text>
         </View>
         <View>
-          <Text style={styles['text-price']}>$199</Text>
+          <Text style={styles['text-price']}>${data.price}</Text>
           <Text style={styles['text-status']}>/per night</Text>
         </View>
       </View>
