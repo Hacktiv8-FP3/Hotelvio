@@ -4,17 +4,11 @@ import { Image, TouchableOpacity, Text, View } from 'react-native-ui-lib';
 import { colors } from '../utils/color';
 
 interface Props {
-  src?: string;
   text?: string;
   onPress?: any;
   active: Boolean;
 }
-export const ImageCard = ({
-  src = '../images/background.png',
-  text = 'Bali',
-  onPress,
-  active,
-}: Props) => {
+export const ImageCard = ({ text = 'Bali', onPress, active }: Props) => {
   return (
     <TouchableOpacity
       style={[styles.card, styles.elevation, active && styles.active]}
