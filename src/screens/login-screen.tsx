@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Text, StyleSheet, SafeAreaView, View, TextInput } from 'react-native';
-import { Checkbox, TouchableOpacity } from 'react-native-ui-lib';
+import { Checkbox } from 'react-native-ui-lib';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/user';
 import { RootState } from '../redux/reducer';
