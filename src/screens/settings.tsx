@@ -130,7 +130,7 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
               <Text style={iOSUIKit.subhead}>Email</Text>
               <TextInput
                 value={user.email}
-                editable={editable}
+                editable={false}
                 placeholder='email'
                 style={styles.input}
                 onChangeText={(text: any) =>
