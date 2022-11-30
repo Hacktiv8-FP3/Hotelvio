@@ -94,7 +94,11 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
   };
 
   const handleSaveData = () => {
-    dispatch(editData(user));
+    dispatch(
+      editData({
+        user: user,
+      })
+    );
   };
 
   return (
@@ -130,7 +134,7 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
               <Text style={iOSUIKit.subhead}>Email</Text>
               <TextInput
                 value={user.email}
-                editable={false}
+                editable={editable}
                 placeholder='email'
                 style={styles.input}
                 onChangeText={(text: any) =>

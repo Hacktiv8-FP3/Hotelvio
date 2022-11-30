@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Text, StyleSheet, SafeAreaView, View, TextInput } from 'react-native';
-import { Checkbox, TouchableOpacity } from 'react-native-ui-lib';
+import { Checkbox } from 'react-native-ui-lib';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/user';
 import { RootState } from '../redux/reducer';
@@ -22,12 +22,15 @@ export const LoginScreen: ScreenComponent = observer(({ componentId }) => {
   const state = useSelector((state: RootState) => state.login);
 
   const handleLogin = useCallback(() => {
-    // console.log(input);
-    dispatch(login(input));
-    if (state.isLogin) {
+    console.log(state.user);
+    if (
+      state.user.email === input.email &&
+      state.user.password === input.password
+    ) {
+      dispatch(login());
       screens.pop(componentId);
     }
-  }, [state.isLogin, input]);
+  }, [input]);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles['child-container']}>

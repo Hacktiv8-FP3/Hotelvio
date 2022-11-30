@@ -3,7 +3,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface InitState {
   isLogin: boolean;
-  isLoading: boolean;
   user: any;
 }
 const user = {
@@ -15,7 +14,6 @@ const user = {
 };
 const intialState: InitState = {
   isLogin: false,
-  isLoading: false,
   user: user,
 };
 
@@ -23,18 +21,10 @@ export const loginSlice = createSlice({
   name: 'Login',
   initialState: intialState,
   reducers: {
-    login: (state, action) => {
-      state.isLoading = true;
-      const { email, password } = action.payload;
-      if (user.email === email && password === user.password) {
-        state.isLogin = true;
-      } else {
-        state.isLogin = false;
-      }
-      state.isLoading = false;
+    login: (state) => {
+      state.isLogin = true;
     },
     logout: (state) => {
-      state.isLoading = intialState.isLoading;
       state.isLogin = intialState.isLogin;
       state.user = intialState.user;
     },
