@@ -25,15 +25,29 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Input } from '../components/Input';
 import { Modalize } from 'react-native-modalize';
 import { colors } from '../utils/color';
+import axios from 'axios';
+import { httpClient } from '../services/api';
+import { debug } from 'react-native-reanimated';
+import { getHotelByCategory } from '../redux/Property';
 
 const { TextField } = Incubator;
-
+const topCity = ['Bandung', 'Jakarta', 'Medan', 'Makassar', 'Surabaya'];
+const popularCity = [
+  'Yogyakarta',
+  'Ubud',
+  'Kuta',
+  'Jakarta',
+  'Bandung',
+  'Surabaya',
+  'Banjarmasin',
+];
 export const Main: ScreenComponent = observer(({ componentId }) => {
   const { t } = useServices();
-  const { topCity } = useAppSelector(({ topCity }) => topCity);
+  const { data } = useAppSelector((state) => state.property);
   const dispatch = useAppDispatch();
   const searchRef = createRef<TextInput>();
   const [expanded, setExpanded] = useState(false);
+  const [category, setCategory] = useState('');
   const [checkInDate, setCheckInDate] = useState<Date>();
   const [checkOutDate, setCheckOutDate] = useState<Date>();
   const [guests, setGuests] = useState<GuestProps>({ adults: 1, children: 0 });
@@ -63,10 +77,32 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   const show = () => screens.show<SampleProps>('Sample', { type: 'show' });
 
   // Start
+
   useEffect(() => {
-    !topCity.length &&
-      dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
+    // !topCity.length &&
+    //   dispatch(getTopDestinations({ state: 'CA', page: 1, items: 10 }));
+
+    dispatch(
+      getHotelByCategory({
+        category: 'bali',
+        checkOutDate: {
+          day: 15,
+          month: 10,
+          year: 2022,
+        },
+        checkInDate: {
+          day: 10,
+          month: 10,
+          year: 2022,
+        },
+        adult: 2,
+      })
+    );
   }, []);
+  useEffect(() => {
+    console.log(checkInDate);
+  }, [checkInDate]);
+
   // useNavigationButtonPress(handleCounterInc, componentId, navButtons.inc.id);
   // useNavigationButtonPress(handleCounterDec, componentId, navButtons.dec.id);
 
@@ -151,7 +187,12 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
           >
             {!!topCity.length &&
               topCity.map((item, index) => (
-                <ImageCard key={index} text={item.city} />
+                <ImageCard
+                  key={index}
+                  text={item}
+                  active={category === item}
+                  onPress={() => setCategory(item)}
+                />
               ))}
           </ScrollView>
         </Section>
@@ -161,56 +202,38 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             showsHorizontalScrollIndicator={false}
             style={styles.scrollView}
           >
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
-            <ImageCard />
+            {!!popularCity.length &&
+              popularCity.map((item, index) => (
+                <ImageCard
+                  key={index}
+                  text={item}
+                  active={category === item}
+                  onPress={() => setCategory(item)}
+                />
+              ))}
           </ScrollView>
         </Section>
 
         <Section title='Hotel'>
-          <HotelCard />
-          <HotelCard />
-          <HotelCard />
-          <HotelCard />
-        </Section>
-
-        <Section title='Reanimated 2'>
-          <Reanimated2 />
-        </Section>
-
-        {/* <Section title='MobX'>
-          <View centerV>
-            <Text marginB-s2 text60R textColor>
-              App launches: {ui.appLaunches}
-            </Text>
-
-            <Text marginB-s2 text60R textColor>
-              Counter:{' '}
-              <If
-                _={loading}
-                _then={<Text textColor>Loading...</Text>}
-                _else={<Text textColor>{products}</Text>}
+          {!!data.length &&
+            data.map((_data: any) => (
+              <HotelCard
+                key={_data.id}
+                data={{
+                  ..._data,
+                  category,
+                }}
               />
-            </Text>
-
-            <Row>
-              <BButton margin-s1 label=' - ' onPress={handleCounterDec} />
-              <BButton margin-s1 label=' + ' onPress={handleCounterInc} />
-              <BButton margin-s1 label='reset' onPress={handleCounterReset} />
-            </Row>
-          </View>
-        </Section> */}
+            ))}
+        </Section>
+        <Modalize
+          ref={modalizeRef}
+          adjustToContentHeight
+          childrenStyle={{ padding: 16 }}
+        >
+          <GuestModal setGuests={setGuests} guests={guests} />
+        </Modalize>
       </ScrollView>
-      <Modalize
-        ref={modalizeRef}
-        adjustToContentHeight
-        childrenStyle={{ padding: 16 }}
-      >
-        <GuestModal setGuests={setGuests} guests={guests} />
-      </Modalize>
     </View>
   );
 });

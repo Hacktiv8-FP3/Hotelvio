@@ -2,11 +2,11 @@ import { CounterApi } from './counter';
 import axios from 'axios';
 
 export const httpClient = axios.create({
-  baseURL: 'https://mashvisor-api.p.rapidapi.com',
+  baseURL: 'https://hotels4.p.rapidapi.com/',
   headers: {
-    'Content-Type': 'application/json',
-    'X-RapidAPI-Key': 'cf7770bc48mshb26ada8c9b90276p199c97jsnf4ca622fb818',
-    'X-RapidAPI-Host': 'mashvisor-api.p.rapidapi.com',
+    'content-type': 'application/json',
+    'X-RapidAPI-Key': 'fbff628e58msh41ccc8a5203df5ap19074ajsn346033240c5f',
+    'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
   },
 });
 

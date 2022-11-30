@@ -6,16 +6,19 @@ import { colors } from '../utils/color';
 interface Props {
   src?: string;
   text?: string;
+  onPress?: any;
+  active: Boolean;
 }
 export const ImageCard = ({
   src = '../images/background.png',
   text = 'Bali',
+  onPress,
+  active,
 }: Props) => {
-  console.log(src);
   return (
     <TouchableOpacity
-      style={[styles.card, styles.elevation]}
-      onPress={() => {}}
+      style={[styles.card, styles.elevation, active && styles.active]}
+      onPress={onPress}
     >
       <View style={styles['image-container']}>
         <Image
@@ -56,5 +59,8 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     textAlign: 'center',
     color: 'black',
+  },
+  active: {
+    backgroundColor: 'red',
   },
 });
