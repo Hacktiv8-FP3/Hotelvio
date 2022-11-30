@@ -1,4 +1,4 @@
-import { GuestModal } from '../components/GuestModal';
+import { GuestModal, GuestProps } from '../components/GuestModal';
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import {
@@ -34,9 +34,9 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   const dispatch = useAppDispatch();
   const searchRef = createRef<TextInput>();
   const [expanded, setExpanded] = useState(false);
-  const [checkInDate, setCheckInDate] = useState(new Date());
-  const [checkOutDate, setCheckOutDate] = useState(new Date());
-  const [guests, setGuests] = useState(1);
+  const [checkInDate, setCheckInDate] = useState<Date>();
+  const [checkOutDate, setCheckOutDate] = useState<Date>();
+  const [guests, setGuests] = useState<GuestProps>({ adults: 1, children: 0 });
   const modalizeRef = useRef<Modalize>(null);
 
   const onOpenModal = () => {
@@ -78,7 +78,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
         <Section title='Hello fellas 👋'>
           <TextField
             marginV-s2
-            placeholder={'Search'}
+            placeholder={t.do('home.filter.search')}
             ref={searchRef}
             maxLength={30}
             fieldStyle={[styles.inputField, styles.bgGray]}
@@ -101,7 +101,6 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
               <Row style={{ width: '50%' }}>
                 <DateTimePicker
                   migrateTextField
-                  placeholder={'Check-in Date'}
                   mode={'date'}
                   minimumDate={new Date()}
                   value={checkInDate}
@@ -109,7 +108,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                   renderInput={({ value }: { value: string }) => (
                     <Input
                       icon='calendar'
-                      title='Check-in Date'
+                      title={t.do('home.filter.checkIn')}
                       value={value}
                     />
                   )}
@@ -118,7 +117,6 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
               <Row row style={{ width: '50%' }}>
                 <DateTimePicker
                   migrateTextField
-                  placeholder={'Check-out Date'}
                   mode={'date'}
                   minimumDate={new Date()}
                   value={checkOutDate}
@@ -126,7 +124,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                   renderInput={({ value }: { value: string }) => (
                     <Input
                       icon='calendar'
-                      title='Check-in Date'
+                      title={t.do('home.filter.checkOut')}
                       value={value}
                     />
                   )}
@@ -135,12 +133,17 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             </Row>
             <View style={[styles.inputField, styles.bgGray]} marginV-s2>
               <TouchableOpacity onPress={onOpenModal}>
-                <Input icon='user' value={`${guests} Persons`} />
+                <Input
+                  icon='user'
+                  value={`${guests.adults + guests.children} ${t.do(
+                    'home.filter.guest.title'
+                  )}`}
+                />
               </TouchableOpacity>
             </View>
           </ExpandableSection>
         </Section>
-        <Section title='Kota-kota di Indonesia'>
+        <Section title={t.do('home.cities')}>
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -152,7 +155,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
               ))}
           </ScrollView>
         </Section>
-        <Section title='Popular Destination'>
+        <Section title={t.do('home.popular')}>
           <ScrollView
             horizontal={true}
             showsHorizontalScrollIndicator={false}

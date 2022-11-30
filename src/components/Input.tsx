@@ -1,4 +1,5 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { View, Text } from 'react-native-ui-lib';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { Row } from './row';
@@ -15,7 +16,13 @@ export const Input: React.FC<Props> = ({ icon, title, value }) => {
       <View marginR-10>
         <FontAwesome name={icon} size={20} />
       </View>
-      <Text dark10>{value ? value : title}</Text>
+      <Text style={!value && style.placeholder}>{value ? value : title}</Text>
     </Row>
   );
 };
+
+const style = StyleSheet.create({
+  placeholder: {
+    color: '#ccc',
+  },
+});
