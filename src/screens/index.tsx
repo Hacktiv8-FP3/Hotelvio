@@ -9,6 +9,8 @@ import { Sample } from './_screen-sample';
 import { Playground } from './playground';
 import { withAppearance } from '../utils/hooks';
 import { withRedux } from '../redux/Provider';
+import { BookedScreen } from './booked-screen';
+import { LoginScreen } from './login-screen';
 
 export const screens = generateRNNScreens(
   {
@@ -24,6 +26,16 @@ export const screens = generateRNNScreens(
         topBar: { title: { text: 'Playground' } },
         ...withBottomTab('Playground', 'construct'),
       },
+    },
+    Booked: {
+      component: LoginScreen,
+      options: {
+        topBar: { title: { text: 'Booked' } },
+        ...withBottomTab('Booked', 'construct'),
+      },
+    },
+    Login: {
+      component: LoginScreen,
     },
     Settings: {
       component: Settings,

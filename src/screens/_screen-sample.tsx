@@ -7,7 +7,7 @@ import { screens } from '.';
 import { useServices } from '../services';
 // import {useStores} from '../stores';
 import { Section } from '../components/section';
-import { BButton } from '../components/button';
+// import { BButton } from '../components/button';
 
 export type Props = {
   type?: 'push' | 'show';
@@ -40,12 +40,12 @@ export const Sample: ScreenComponent<Props> = ({
     <View flex bg-bgColor>
       <ScrollView contentInsetAdjustmentBehavior='always'>
         <Section title={t.do('section.navigation.title')}>
-          <BButton
+          {/* <BButton
             marginV-s1
             label={t.do('section.navigation.button.push')}
             onPress={push}
-          />
-          <BButton
+          /> */}
+          {/* <BButton
             marginV-s1
             label={t.do('section.navigation.button.show')}
             onPress={show}
@@ -54,7 +54,7 @@ export const Sample: ScreenComponent<Props> = ({
             marginV-s1
             label={t.do('section.navigation.button.back')}
             onPress={goBack}
-          />
+          /> */}
         </Section>
       </ScrollView>
     </View>

@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Text, StyleSheet, SafeAreaView, View, TextInput } from 'react-native';
 import { Checkbox, TouchableOpacity } from 'react-native-ui-lib';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/user';
+import { RootState } from '../redux/reducer';
 import { colors } from '../utils/color';
-
+import { screens } from '.';
+import { ScreenComponent } from 'rnn-screens';
+import { observer } from 'mobx-react-lite';
+import { Button } from '../components/button';
 // import { Image } from 'react-native-ui-lib';
 
 const intialState = {
   email: '',
   password: '',
 };
-export const LoginScreen = () => {
+export const LoginScreen: ScreenComponent = observer(({ componentId }) => {
   const [input, setInput] = useState(intialState);
   const [visible, setVisible] = useState(false);
+  const dispatch = useDispatch();
+  const state = useSelector((state: RootState) => state.login);
 
-  useEffect(() => {
-    console.log(input, '\n');
-  }, [input]);
+  const handleLogin = useCallback(() => {
+    // console.log(input);
+    dispatch(login(input));
+    if (state.isLogin) {
+      screens.pop(componentId);
+    }
+  }, [state.isLogin, input]);
   return (
     <SafeAreaView style={styles.container}>
-      {/* <View style={styles['image-container']}>
-        <Image
-          source={require('../images/background.png')}
-          style={styles.image}
-        />
-      </View> */}
       <View style={styles['child-container']}>
         <Text style={styles.titleText}>Login to your Account</Text>
         <Text style={styles.label}>Email</Text>
@@ -57,13 +63,11 @@ export const LoginScreen = () => {
           <Text style={styles.label}>Show password</Text>
         </View>
         {/* <Button title='Sign In jdjdjdjdjj' color='#FEDE00' /> */}
-        <TouchableOpacity style={styles.button}>
-          <Text style={{ ...styles.text, ...styles.buttonText }}>Sign In</Text>
-        </TouchableOpacity>
+        <Button onPress={handleLogin}>Sign In</Button>
       </View>
     </SafeAreaView>
   );
-};
+});
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
