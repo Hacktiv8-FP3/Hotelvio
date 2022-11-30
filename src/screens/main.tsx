@@ -80,7 +80,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             marginV-s2
             placeholder={t.do('home.filter.search')}
             ref={searchRef}
-            maxLength={30}
+            maxLength={29}
             fieldStyle={[styles.inputField, styles.bgGray]}
             leadingAccessory={
               <View marginR-10>
@@ -92,7 +92,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                 marginL-10
                 onPress={() => setExpanded(!expanded)}
               >
-                <Ionicons name='ios-filter' size={20} color='#1bb65c' />
+                <Ionicons name='ios-filter' size={20} color={colors.blue} />
               </TouchableOpacity>
             }
           />
