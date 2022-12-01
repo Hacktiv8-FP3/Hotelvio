@@ -83,7 +83,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
         children: guests.children,
       })
     );
-  }, [category]);
+  }, [category, guests, checkInDate, checkOutDate]);
 
   return (
     <View flex bg-bgColor>
