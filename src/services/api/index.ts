@@ -5,7 +5,7 @@ export const httpClient = axios.create({
   baseURL: 'https://hotels4.p.rapidapi.com/',
   headers: {
     'content-type': 'application/json',
-    'X-RapidAPI-Key': 'fbff628e58msh41ccc8a5203df5ap19074ajsn346033240c5f',
+    'X-RapidAPI-Key': 'cf7770bc48mshb26ada8c9b90276p199c97jsnf4ca622fb818',
     'X-RapidAPI-Host': 'hotels4.p.rapidapi.com',
   },
 });

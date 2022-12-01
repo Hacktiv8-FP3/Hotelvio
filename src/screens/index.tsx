@@ -9,8 +9,8 @@ import { Sample } from './_screen-sample';
 import { Playground } from './playground';
 import { withAppearance } from '../utils/hooks';
 import { withRedux } from '../redux/Provider';
-import { BookedScreen } from './booked-screen';
 import { LoginScreen } from './login-screen';
+import { HotelDetail } from './hotel-detail';
 
 export const screens = generateRNNScreens(
   {
@@ -36,6 +36,9 @@ export const screens = generateRNNScreens(
     },
     Login: {
       component: LoginScreen,
+    },
+    Detail: {
+      component: HotelDetail,
     },
     Settings: {
       component: Settings,

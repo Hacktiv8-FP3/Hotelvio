@@ -2,11 +2,27 @@ import React from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
+import { screens } from '../screens';
+// import { screens } from '../screens';
+// import { Props as SampleProps } from './_screen-sample';
 import { colors } from '../utils/color';
 
-export const HotelCard: React.FC<{ data: any }> = ({ data }) => {
+export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
+  data,
+  componentId,
+}) => {
+  const push = () => {
+    screens.push(componentId, 'Detail', {
+      passProps: {
+        id: data.id,
+      },
+    });
+  };
   return (
-    <TouchableOpacity style={[styles.container, styles.elevation]}>
+    <TouchableOpacity
+      style={[styles.container, styles.elevation]}
+      onPress={push}
+    >
       <Image
         source={require('../images/background2.jpg')}
         style={styles.image}

@@ -12,9 +12,8 @@ import { ScreenComponent } from 'rnn-screens';
 import { observer } from 'mobx-react';
 import { HotelCard, HotelCardLoading } from '../components/hotel-card';
 
-import { screens } from '.';
 import { useServices } from '../services';
-import { Props as SampleProps } from './_screen-sample';
+
 import { Section } from '../components/section';
 import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
@@ -56,10 +55,6 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   const onOpenGuestModal = () => {
     guestModalRef.current?.open();
   };
-
-  const push = () =>
-    screens.push<SampleProps>(componentId, 'Sample', { type: 'push' });
-  const show = () => screens.show<SampleProps>('Sample', { type: 'show' });
 
   useEffect(() => {
     dispatch(
@@ -198,6 +193,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             !!data.length &&
             data.map((_data: any) => (
               <HotelCard
+                componentId={componentId}
                 key={_data.id}
                 data={{
                   ..._data,
