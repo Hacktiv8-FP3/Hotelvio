@@ -11,6 +11,7 @@ import { withAppearance } from '../utils/hooks';
 import { withRedux } from '../redux/Provider';
 import { LoginScreen } from './login-screen';
 import { HotelDetail } from './hotel-detail';
+import { FavoriteScreen } from './favorites-screen';
 
 export const screens = generateRNNScreens(
   {
@@ -32,6 +33,13 @@ export const screens = generateRNNScreens(
       options: {
         topBar: { title: { text: 'Booked' } },
         ...withBottomTab('Booked', 'construct'),
+      },
+    },
+    Favorites: {
+      component: FavoriteScreen,
+      options: {
+        // topBar: { title: { text: 'Favorites' } },
+        ...withBottomTab('Favorites', 'construct'),
       },
     },
     Login: {
