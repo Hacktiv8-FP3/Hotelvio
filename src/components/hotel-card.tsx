@@ -3,8 +3,7 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
 import { screens } from '../screens';
-// import { screens } from '../screens';
-// import { Props as SampleProps } from './_screen-sample';
+import { HotelDetailProps } from '../screens/hotel-detail';
 import { colors } from '../utils/color';
 
 export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
@@ -12,12 +11,9 @@ export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
   componentId,
 }) => {
   const push = () => {
-    screens.push(componentId, 'Detail', {
-      passProps: {
-        id: data.id,
-      },
-    });
+    screens.push<HotelDetailProps>(componentId, 'HotelDetail', { id: data.id });
   };
+
   return (
     <TouchableOpacity
       style={[styles.container, styles.elevation]}
