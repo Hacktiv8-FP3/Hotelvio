@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { PropsWithChildren, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
 import { colors } from '../utils/color';
@@ -7,6 +7,9 @@ import { facilitiesIcon } from '../utils/facilities';
 import { IconCard } from '../components/icon-card';
 import { StarRate } from '../components/star-rate';
 import { CommentRate } from '../components/comment-rate';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+
+import { getHotelDetail } from '../redux/Detail';
 
 const facilities = ['restaurant', 'swimming', 'wifi', 'parking', 'pet'];
 
@@ -21,7 +24,17 @@ export const HotelSection: React.FC<PropsWithChildren<{ title: string }>> = ({
     </View>
   );
 };
-export const HotelDetail = () => {
+export const HotelDetail = ({ passProps }: { passProps: any }) => {
+  const { id } = passProps;
+  const { data, loading }: { data: any; loading: boolean } = useAppSelector(
+    (state) => state.detail
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getHotelDetail(id));
+  }, []);
+
   return (
     <View style={{ backgroundColor: 'white', minHeight: '100%' }}>
       <ScrollView contentInsetAdjustmentBehavior='always'>
@@ -33,16 +46,20 @@ export const HotelDetail = () => {
         </View>
         <View style={styles['child-container']}>
           <View style={styles['information-container']}>
-            <Text style={styles['hotel-name']}>Pullman Bali Legian Beach</Text>
-            <Text style={styles['address']}>
+            <Text style={styles['hotel-name']}>{data.name}</Text>
+            <Text style={styles.address}>
               <Ionicons
                 name='md-location-sharp'
                 size={20}
                 color={colors.blue}
               />
-              Jalan Melasti, Bali, 80361 Legian, Indonesia
+              {data.location}
             </Text>
           </View>
+          <View style={{ marginTop: 10 }}>
+            <Text>{data.caption}</Text>
+          </View>
+
           <HotelSection title='Facilities'>
             <ScrollView
               horizontal={true}
@@ -62,7 +79,7 @@ export const HotelDetail = () => {
             </ScrollView>
           </HotelSection>
           <HotelSection title='Reviews'>
-            <StarRate star={4} />
+            {!loading && <StarRate star={data.rating} />}
             <CommentRate
               comment={
                 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus aut recusandae dignissimos debitis praesentium possimus ex eos corrupti, autem illum illo et, eligendi explicabo, voluptas omnis distinctio numquam quo laborum.'
