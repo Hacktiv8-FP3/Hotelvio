@@ -30,11 +30,12 @@ export const HotelCard: React.FC<{ data: any }> = ({ data }) => {
 export const HotelCardLoading: React.FC = () => {
   return (
     <ContentLoader
-      width='99%'
+      width='100%'
       height={160}
-      viewBox='0 0 300 160'
+      viewBox='0 0 400 160'
       backgroundColor='#f0f0f0'
       foregroundColor='#dedede'
+      style={{ marginTop: 20 }}
     >
       <Rect x='0' y='125' rx='4' ry='4' width='70%' height='9' />
       <Rect x='0' y='138' rx='3' ry='3' width='20%' height='6' />
