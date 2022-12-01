@@ -26,7 +26,9 @@ const guestSlice = createSlice({
       state.guests.adults += 1;
     },
     removeAdult: (state) => {
-      state.guests.adults -= 1;
+      if (state.guests.adults > 0) {
+        state.guests.adults -= 1;
+      }
     },
     addChild: (state) => {
       state.guests.children.push({ age: 0 });
