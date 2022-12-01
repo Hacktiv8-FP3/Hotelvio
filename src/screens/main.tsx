@@ -1,4 +1,4 @@
-import { GuestModal } from '../components/GuestModal';
+import { GuestModal } from '../components/guest-modal';
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import {
@@ -24,7 +24,7 @@ import { Modalize } from 'react-native-modalize';
 import { colors } from '../utils/color';
 import { getHotelByCategory } from '../redux/Property';
 import Animated from 'react-native-reanimated';
-import AgeModal from '../components/AgeModal';
+import AgeModal from '../components/age-modal';
 
 const { TextField } = Incubator;
 

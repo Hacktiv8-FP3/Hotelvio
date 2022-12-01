@@ -45,7 +45,7 @@ export const screens = generateRNNScreens(
     Login: {
       component: LoginScreen,
     },
-    Detail: {
+    HotelDetail: {
       component: HotelDetail,
     },
     Settings: {

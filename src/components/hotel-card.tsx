@@ -3,11 +3,11 @@ import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
 import { screens } from '../screens';
+import { HotelDetailProps } from '../screens/hotel-detail';
 import { colors } from '../utils/color';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { addFavorite, removeFavorite } from '../redux/favorites';
-import { add } from 'lodash';
 
 export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
   data,
@@ -16,19 +16,13 @@ export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
   const { favorites } = useAppSelector((state) => state.favorites);
   const dispatch = useAppDispatch();
   const push = () => {
-    screens.push(componentId, 'Detail', {
-      passProps: {
-        id: data.id,
-      },
-    });
+    screens.push<HotelDetailProps>(componentId, 'HotelDetail', { id: data.id });
   };
+
   const isFavorite = () => {
     return favorites.filter(({ id }) => id === data.id).length === 1;
   };
 
-  useEffect(() => {
-    console.log(favorites);
-  }, [favorites]);
   return (
     <TouchableOpacity
       style={[styles.container, styles.elevation]}

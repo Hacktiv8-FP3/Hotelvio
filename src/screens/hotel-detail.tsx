@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import { Image, ScrollView, StyleSheet } from 'react-native';
-import { Text, View } from 'react-native-ui-lib';
+import { FloatingButton, Text, View } from 'react-native-ui-lib';
 import { colors } from '../utils/color';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { facilitiesIcon } from '../utils/facilities';
@@ -10,6 +10,11 @@ import { CommentRate } from '../components/comment-rate';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 
 import { getHotelDetail } from '../redux/Detail';
+import { ScreenComponent } from 'rnn-screens';
+
+export type HotelDetailProps = {
+  id: string;
+};
 
 const facilities = ['restaurant', 'swimming', 'wifi', 'parking', 'pet'];
 
@@ -24,8 +29,7 @@ export const HotelSection: React.FC<PropsWithChildren<{ title: string }>> = ({
     </View>
   );
 };
-export const HotelDetail = ({ passProps }: { passProps: any }) => {
-  const { id } = passProps;
+export const HotelDetail: ScreenComponent<HotelDetailProps> = ({ id }) => {
   const { data, loading }: { data: any; loading: boolean } = useAppSelector(
     (state) => state.detail
   );
@@ -93,6 +97,13 @@ export const HotelDetail = ({ passProps }: { passProps: any }) => {
           </HotelSection>
         </View>
       </ScrollView>
+      <FloatingButton
+        visible
+        button={{
+          label: 'Book this hotel',
+          onPress: () => console.log('approved'),
+        }}
+      />
     </View>
   );
 };
