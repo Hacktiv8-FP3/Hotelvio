@@ -4,6 +4,7 @@ import { iOSUIKit } from 'react-native-typography';
 import { Incubator, Text } from 'react-native-ui-lib';
 import { updateChildAge } from '../redux/guest';
 import { useServices } from '../services';
+import { colors } from '../utils/color';
 import { useAppDispatch } from '../utils/redux';
 
 const AgeModal: React.FC = () => {
@@ -25,6 +26,7 @@ const AgeModal: React.FC = () => {
       <Incubator.WheelPicker
         items={getItems(_.range(1, 18))}
         onChange={(value: number) => dispatch(updateChildAge(value))}
+        activeTextColor={colors.blue}
       />
     </>
   );
