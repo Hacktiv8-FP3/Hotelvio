@@ -1,8 +1,7 @@
 import React from 'react';
+import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
-// import { screens } from '../screens';
-// import { Props as SampleProps } from './_screen-sample';
 import { colors } from '../utils/color';
 
 export const HotelCard: React.FC<{ data: any }> = ({ data }) => {
@@ -25,6 +24,22 @@ export const HotelCard: React.FC<{ data: any }> = ({ data }) => {
         </View>
       </View>
     </TouchableOpacity>
+  );
+};
+
+export const HotelCardLoading: React.FC = () => {
+  return (
+    <ContentLoader
+      width='99%'
+      height={160}
+      viewBox='0 0 300 160'
+      backgroundColor='#f0f0f0'
+      foregroundColor='#dedede'
+    >
+      <Rect x='0' y='125' rx='4' ry='4' width='70%' height='9' />
+      <Rect x='0' y='138' rx='3' ry='3' width='20%' height='6' />
+      <Rect x='0' y='0' rx='10' ry='10' width='99%' height='120' />
+    </ContentLoader>
   );
 };
 

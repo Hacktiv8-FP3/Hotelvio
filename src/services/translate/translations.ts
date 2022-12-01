@@ -8,7 +8,15 @@ export const en = {
       guest: {
         title: 'Guest',
         adult: 'Adult',
-        children: 'Children',
+        children: {
+          title: 'Children',
+          subtitle: "Add children's ages",
+          chip: 'Child',
+          age: {
+            title: "Select child's age",
+            label: 'Years old',
+          },
+        },
       },
     },
     cities: 'Kota-kota di Indonesia',
@@ -42,7 +50,15 @@ export const id = {
       guest: {
         title: 'Tamu',
         adult: 'Dewasa',
-        children: 'Anak-anak',
+        children: {
+          title: 'Anak-anak',
+          subtitle: 'Tambahkan usia anak',
+          chip: 'Anak',
+          age: {
+            title: 'Pilih usia anak',
+            label: 'Tahun',
+          },
+        },
       },
     },
     cities: 'Cities in Indonesia',

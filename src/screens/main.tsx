@@ -1,4 +1,4 @@
-import { GuestModal, GuestProps } from '../components/GuestModal';
+import { GuestModal } from '../components/GuestModal';
 import React, { createRef, useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput } from 'react-native';
 import {
@@ -10,7 +10,7 @@ import {
 } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
 import { observer } from 'mobx-react';
-import { HotelCard } from '../components/hotel-card';
+import { HotelCard, HotelCardLoading } from '../components/hotel-card';
 
 import { screens } from '.';
 import { useServices } from '../services';
@@ -24,8 +24,11 @@ import { Input } from '../components/Input';
 import { Modalize } from 'react-native-modalize';
 import { colors } from '../utils/color';
 import { getHotelByCategory } from '../redux/Property';
+import Animated from 'react-native-reanimated';
+import AgeModal from '../components/AgeModal';
 
 const { TextField } = Incubator;
+
 const topCity = ['Bandung', 'Jakarta', 'Medan', 'Makassar', 'Surabaya'];
 const popularCity = [
   'Yogyakarta',
@@ -36,20 +39,22 @@ const popularCity = [
   'Surabaya',
   'Banjarmasin',
 ];
+
 export const Main: ScreenComponent = observer(({ componentId }) => {
   const { t } = useServices();
-  const { data } = useAppSelector((state) => state.property);
+  const { data, loading } = useAppSelector((state) => state.property);
+  const { guests } = useAppSelector(({ guest }) => guest);
   const dispatch = useAppDispatch();
   const searchRef = createRef<TextInput>();
   const [expanded, setExpanded] = useState(false);
-  const [category, setCategory] = useState('');
+  const [category, setCategory] = useState('Indonesia');
   const [checkInDate, setCheckInDate] = useState<Date>();
   const [checkOutDate, setCheckOutDate] = useState<Date>();
-  const [guests, setGuests] = useState<GuestProps>({ adults: 1, children: 0 });
-  const modalizeRef = useRef<Modalize>(null);
+  const guestModalRef = useRef<Modalize>(null);
+  const ageModalRef = useRef<Modalize>(null);
 
-  const onOpenModal = () => {
-    modalizeRef.current?.open();
+  const onOpenGuestModal = () => {
+    guestModalRef.current?.open();
   };
 
   const push = () =>
@@ -59,24 +64,26 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   useEffect(() => {
     dispatch(
       getHotelByCategory({
-        category: 'bali',
+        category: category,
         checkOutDate: {
-          day: 15,
-          month: 10,
-          year: 2022,
+          day: checkOutDate ? checkOutDate.getDate() : new Date().getDate() + 7,
+          month: checkOutDate ? checkOutDate.getMonth() : new Date().getMonth(),
+          year: checkOutDate
+            ? checkOutDate.getFullYear()
+            : new Date().getFullYear(),
         },
         checkInDate: {
-          day: 10,
-          month: 10,
-          year: 2022,
+          day: checkInDate ? checkInDate.getDate() : new Date().getDate(),
+          month: checkInDate ? checkInDate.getMonth() : new Date().getMonth(),
+          year: checkInDate
+            ? checkInDate.getFullYear()
+            : new Date().getFullYear(),
         },
-        adult: 2,
+        adults: guests.adults,
+        children: guests.children,
       })
     );
-  }, []);
-  useEffect(() => {
-    console.log(checkInDate);
-  }, [checkInDate]);
+  }, [category]);
 
   return (
     <View flex bg-bgColor>
@@ -138,10 +145,10 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
               </Row>
             </Row>
             <View style={[styles.inputField, styles.bgGray]} marginV-s2>
-              <TouchableOpacity onPress={onOpenModal}>
+              <TouchableOpacity onPress={onOpenGuestModal}>
                 <Input
                   icon='user'
-                  value={`${guests.adults + guests.children} ${t.do(
+                  value={`${guests.adults + guests.children.length - 1} ${t.do(
                     'home.filter.guest.title'
                   )}`}
                 />
@@ -185,7 +192,10 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
         </Section>
 
         <Section title='Hotel'>
-          {!!data.length &&
+          {loading ? (
+            <HotelCardLoading />
+          ) : (
+            !!data.length &&
             data.map((_data: any) => (
               <HotelCard
                 key={_data.id}
@@ -194,16 +204,28 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                   category,
                 }}
               />
-            ))}
+            ))
+          )}
         </Section>
-        <Modalize
-          ref={modalizeRef}
-          adjustToContentHeight
-          childrenStyle={{ padding: 16 }}
-        >
-          <GuestModal setGuests={setGuests} guests={guests} />
-        </Modalize>
       </ScrollView>
+
+      <Modalize
+        ref={guestModalRef}
+        adjustToContentHeight
+        childrenStyle={{ padding: 16 }}
+      >
+        <GuestModal modalRef={ageModalRef} />
+      </Modalize>
+      <Modalize
+        ref={ageModalRef}
+        adjustToContentHeight
+        childrenStyle={{ padding: 16 }}
+        customRenderer={
+          <Animated.View>
+            <AgeModal />
+          </Animated.View>
+        }
+      />
     </View>
   );
 });

@@ -1,11 +1,12 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import topCityReducer from './TopCity';
 import loginReducer from './user';
 import propertyReducer from './Property';
+import guestReducer from './guest';
+
 export const rootReducers = combineReducers({
-  topCity: topCityReducer,
   login: loginReducer,
   property: propertyReducer,
+  guest: guestReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducers>;

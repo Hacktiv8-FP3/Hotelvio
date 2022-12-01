@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { iOSUIKit } from 'react-native-typography';
-import { Text, MarginModifiers, View } from 'react-native-ui-lib';
+import { Text, View, ContainerModifiers } from 'react-native-ui-lib';
 import { Bounceable } from 'rn-bounceable';
 import { colors } from '../utils/color';
 
-type Props = MarginModifiers & {
+type Props = ContainerModifiers & {
   onPress?: PureFunc;
 };
 

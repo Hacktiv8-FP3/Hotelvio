@@ -7,9 +7,9 @@ const fetchCategoryId = (category: string) => {
     .get('locations/v3/search', {
       params: {
         q: category,
-        locale: 'en_US',
-        langid: '1033',
-        siteid: '300000001',
+        locale: 'en_GB',
+        langid: '2057',
+        siteid: '321200046',
       },
     })
     .then((res) => res.data.sr[0].gaiaId);
@@ -21,16 +21,17 @@ interface Date {
 }
 const fetchPropertybyCategory = (
   id: string,
-  adult: number,
+  adults: number,
+  children: { age?: number }[],
   checkInDate: Date,
   checkOutDate: Date
 ) => {
   return httpClient
     .post('properties/v2/list', {
-      currency: 'USD',
-      eapid: 1,
-      locale: 'en_US',
-      siteId: 300000001,
+      currency: 'IDR',
+      eapid: 46,
+      locale: 'en_GB',
+      siteId: 321200046,
       destination: {
         regionId: id,
       },
@@ -38,11 +39,13 @@ const fetchPropertybyCategory = (
       checkOutDate,
       rooms: [
         {
-          adults: adult,
+          adults,
+          children,
         },
       ],
       resultsStartingIndex: 0,
       resultsSize: 10,
+      sort: 'PRICE_RELEVANT',
     })
     .then((res) =>
       res.data.data.propertySearch.properties.map((item: any) => {
@@ -60,20 +63,26 @@ export const getHotelByCategory = createAsyncThunk(
   'getHotelByCategory',
   async ({
     category,
-    adult,
+    adults,
+    children,
     checkInDate,
     checkOutDate,
   }: {
     category: string;
-    adult: number;
+    adults: number;
+    children: { age?: number }[];
     checkInDate: Date;
     checkOutDate: Date;
   }) => {
     try {
       const res = fetchCategoryId(category).then((res) =>
-        fetchPropertybyCategory(res, adult, checkInDate, checkOutDate).then(
-          (res) => res
-        )
+        fetchPropertybyCategory(
+          res,
+          adults,
+          children,
+          checkInDate,
+          checkOutDate
+        ).then((res) => res)
       );
       return res;
     } catch (err) {
