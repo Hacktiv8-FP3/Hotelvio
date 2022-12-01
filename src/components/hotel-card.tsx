@@ -1,17 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
 import { screens } from '../screens';
 import { HotelDetailProps } from '../screens/hotel-detail';
 import { colors } from '../utils/color';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+import { addFavorite, removeFavorite } from '../redux/favorites';
 
 export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
   data,
   componentId,
 }) => {
+  const { favorites } = useAppSelector((state) => state.favorites);
+  const dispatch = useAppDispatch();
   const push = () => {
     screens.push<HotelDetailProps>(componentId, 'HotelDetail', { id: data.id });
+  };
+
+  const isFavorite = () => {
+    return favorites.filter(({ id }) => id === data.id).length === 1;
   };
 
   return (
@@ -23,6 +32,28 @@ export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
         source={require('../images/background2.jpg')}
         style={styles.image}
       />
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          zIndex: 2,
+          top: 0,
+          right: 0,
+          paddingRight: 6,
+          paddingTop: 3,
+        }}
+        onPress={() => {
+          console.log(data.id);
+          isFavorite()
+            ? dispatch(removeFavorite({ id: data.id }))
+            : dispatch(addFavorite(data));
+        }}
+      >
+        <AntDesign
+          name={isFavorite() ? 'like1' : 'like2'}
+          size={28}
+          color={'#fff'}
+        />
+      </TouchableOpacity>
       <View style={styles['information-container']}>
         <View>
           <Text style={styles['text-brand']}>{data.name}</Text>

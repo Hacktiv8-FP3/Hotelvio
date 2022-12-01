@@ -160,7 +160,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             {!!topCity.length &&
               topCity.map((item, index) => (
                 <ImageCard
-                  key={index}
+                  key={'topCity' + index}
                   text={item}
                   active={category === item}
                   onPress={() => setCategory(item)}
@@ -177,7 +177,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             {!!popularCity.length &&
               popularCity.map((item, index) => (
                 <ImageCard
-                  key={index}
+                  key={'popularCity' + index}
                   text={item}
                   active={category === item}
                   onPress={() => setCategory(item)}
@@ -194,7 +194,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             data.map((_data: any) => (
               <HotelCard
                 componentId={componentId}
-                key={_data.id}
+                key={'main' + _data.id}
                 data={{
                   ..._data,
                   category,

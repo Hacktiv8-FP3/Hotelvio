@@ -27,7 +27,7 @@ export const App = () =>
     BottomTabs([
       Screen(screens.get('Main')),
       Screen(screens.get('Playground')),
-      Screen(screens.get('Booked')),
+      Screen(screens.get('Favorites')),
       Screen(screens.get('Settings')),
     ])
   );
