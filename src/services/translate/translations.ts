@@ -48,7 +48,7 @@ export const en = {
       title: 'Booking Details',
       total: 'Total',
     },
-    button: 'Switch to purchase',
+    button: 'Swipe to purchase',
   },
 };
 

@@ -4,6 +4,7 @@ import propertyReducer from './Property';
 import guestReducer from './guest';
 import detailReducer from './Detail';
 import favoritesReducer from './favorites';
+import historyReducer from './history';
 
 export const rootReducers = combineReducers({
   login: loginReducer,
@@ -11,6 +12,7 @@ export const rootReducers = combineReducers({
   guest: guestReducer,
   detail: detailReducer,
   favorites: favoritesReducer,
+  history: historyReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducers>;

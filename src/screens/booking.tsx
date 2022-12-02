@@ -6,7 +6,7 @@ import { colors } from '../utils/color';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useServices } from '../services';
 import { Section } from '../components/section';
-import { useAppSelector } from '../utils/redux';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { HotelCard } from '../components/hotel-card';
 import { Row } from '../components/row';
 import calculateGuest from '../utils/calculateGuest';
@@ -15,6 +15,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { iOSUIKit } from 'react-native-typography';
 import SwipeButton from 'rn-swipe-button';
 import { screens } from '.';
+import { addHistory } from '../redux/history';
 
 const { TextField } = Incubator;
 
@@ -23,6 +24,7 @@ export const Booking: ScreenComponent = ({ componentId }) => {
   const { user } = useAppSelector(({ login }) => login);
   const { checkIn, checkOut, rooms } = useAppSelector(({ guest }) => guest);
   const { selectedHotel } = useAppSelector(({ property }) => property);
+  const dispath = useAppDispatch();
 
   return (
     <View flex bg-bgColor>
@@ -126,6 +128,15 @@ export const Booking: ScreenComponent = ({ componentId }) => {
           thumbIconBackgroundColor={colors.blue}
           thumbIconBorderColor={colors.blue}
           onSwipeSuccess={() => {
+            const data = {
+              checkIn: checkIn,
+              checkOut: checkOut,
+              hotel: selectedHotel,
+              guest: calculateGuest(rooms),
+              rooms: rooms.length,
+              bookDate: new Date().toISOString().split('T')[0],
+            };
+            dispath(addHistory(data));
             screens.N.popToRoot(componentId);
           }}
         />

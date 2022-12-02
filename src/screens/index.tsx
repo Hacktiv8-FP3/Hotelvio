@@ -13,6 +13,8 @@ import { HotelDetail } from './hotel-detail';
 import { FavoriteScreen } from './favorites-screen';
 import { withRedux } from '../utils/providers';
 import { Booking } from './booking';
+import { History } from './history';
+import { HistoryDetail } from './history-detail';
 
 export const screens = generateRNNScreens(
   {
@@ -55,6 +57,18 @@ export const screens = generateRNNScreens(
         bottomTabs: { visible: false },
       },
     },
+    History: {
+      component: History,
+      options: {
+        ...withBottomTab('History', 'time'),
+      },
+    },
+    HistoryDetail: {
+      component: HistoryDetail,
+      options: {
+        bottomTabs: { visible: false },
+      },
+    },
     Settings: {
       component: Settings,
       options: {
@@ -69,6 +83,7 @@ export const screens = generateRNNScreens(
         bottomTabs: { visible: false },
       },
     },
+
     Sample: {
       component: Sample,
       options: {

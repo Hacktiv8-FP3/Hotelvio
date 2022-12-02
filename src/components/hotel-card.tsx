@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
