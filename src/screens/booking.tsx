@@ -121,7 +121,7 @@ export const Booking: ScreenComponent = ({ componentId }) => {
           containerStyles={{ alignSelf: 'center' }}
           railBackgroundColor={colors.yellow}
           railBorderColor={colors.yellow}
-          railFillBackgroundColor='transparent'
+          railFillBackgroundColor='#d6bb02'
           railFillBorderColor='transparent'
           thumbIconBackgroundColor={colors.blue}
           thumbIconBorderColor={colors.blue}
