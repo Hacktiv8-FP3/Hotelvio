@@ -5,10 +5,10 @@ import { httpClient } from '../services/api';
 const fetchDetail = (id: string) => {
   return httpClient
     .post('properties/v2/detail', {
-      currency: 'USD',
-      eapid: 1,
-      locale: 'en_US',
-      siteId: 300000001,
+      currency: 'IDR',
+      eapid: 46,
+      locale: 'en_GB',
+      siteId: 321200046,
       propertyId: id,
     })
     .then((res) => {

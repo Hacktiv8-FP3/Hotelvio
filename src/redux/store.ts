@@ -38,6 +38,7 @@ const persistConfig: PersistConfig<RootState> = {
   storage: reduxStorage,
   // There is an issue in the source code of redux-persist (default setTimeout does not cleaning)
   timeout: undefined,
+  blacklist: ['guest'],
 };
 
 // Setup Reducers

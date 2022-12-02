@@ -88,5 +88,10 @@ export class NavigationService implements IService {
         text: t.do('settings.title'),
       },
     });
+    screens.mergeOptions('Booking', {
+      topBar: {
+        title: { text: t.do('booking.title') },
+      },
+    });
   };
 }

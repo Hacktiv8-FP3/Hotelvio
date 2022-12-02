@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { httpClient } from '../services/api';
+import { Guest } from './guest';
 
 const fetchCategoryId = (category: string) => {
   return httpClient
@@ -21,8 +22,7 @@ interface Date {
 }
 const fetchPropertybyCategory = (
   id: string,
-  adults: number,
-  children: { age?: number }[],
+  rooms: Guest[],
   checkInDate: Date,
   checkOutDate: Date
 ) => {
@@ -37,12 +37,7 @@ const fetchPropertybyCategory = (
       },
       checkInDate,
       checkOutDate,
-      rooms: [
-        {
-          adults,
-          children,
-        },
-      ],
+      rooms,
       resultsStartingIndex: 0,
       resultsSize: 10,
       sort: 'PRICE_RELEVANT',
@@ -63,26 +58,20 @@ export const getHotelByCategory = createAsyncThunk(
   'getHotelByCategory',
   async ({
     category,
-    adults,
-    children,
+    rooms,
     checkInDate,
     checkOutDate,
   }: {
     category: string;
-    adults: number;
-    children: { age?: number }[];
+    rooms: Guest[];
     checkInDate: Date;
     checkOutDate: Date;
   }) => {
     try {
       const res = fetchCategoryId(category).then((res) =>
-        fetchPropertybyCategory(
-          res,
-          adults,
-          children,
-          checkInDate,
-          checkOutDate
-        ).then((res) => res)
+        fetchPropertybyCategory(res, rooms, checkInDate, checkOutDate).then(
+          (res) => res
+        )
       );
       return res;
     } catch (err) {
@@ -93,12 +82,17 @@ export const getHotelByCategory = createAsyncThunk(
 
 const intialState = {
   data: [],
+  selectedHotel: {},
   loading: false,
 };
 const propertySlice = createSlice({
   name: 'property',
   initialState: intialState,
-  reducers: {},
+  reducers: {
+    setSelectedHotel: (state, action) => {
+      state.selectedHotel = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getHotelByCategory.pending, (state) => {
       return { ...state, loading: true };
@@ -112,4 +106,5 @@ const propertySlice = createSlice({
   },
 });
 
+export const { setSelectedHotel } = propertySlice.actions;
 export default propertySlice.reducer;

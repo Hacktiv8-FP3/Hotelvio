@@ -8,10 +8,11 @@ import { withBottomTab } from '../services/navigation/options';
 import { Sample } from './_screen-sample';
 import { Playground } from './playground';
 import { withAppearance } from '../utils/hooks';
-import { withRedux } from '../redux/Provider';
-import { LoginScreen } from './login-screen';
+import { Login } from './login';
 import { HotelDetail } from './hotel-detail';
 import { FavoriteScreen } from './favorites-screen';
+import { withRedux } from '../utils/providers';
+import { Booking } from './booking';
 
 export const screens = generateRNNScreens(
   {
@@ -28,13 +29,6 @@ export const screens = generateRNNScreens(
         ...withBottomTab('Playground', 'construct'),
       },
     },
-    Booked: {
-      component: LoginScreen,
-      options: {
-        topBar: { title: { text: 'Booked' } },
-        ...withBottomTab('Booked', 'construct'),
-      },
-    },
     Favorites: {
       component: FavoriteScreen,
       options: {
@@ -43,10 +37,23 @@ export const screens = generateRNNScreens(
       },
     },
     Login: {
-      component: LoginScreen,
+      component: Login,
+      options: {
+        topBar: {
+          largeTitle: { visible: false },
+          scrollEdgeAppearance: {
+            active: true,
+            noBorder: true,
+          },
+        },
+      },
     },
     HotelDetail: {
       component: HotelDetail,
+      options: {
+        topBar: { largeTitle: { visible: false } },
+        bottomTabs: { visible: false },
+      },
     },
     Settings: {
       component: Settings,
@@ -55,7 +62,13 @@ export const screens = generateRNNScreens(
         ...withBottomTab('Settings', 'settings'),
       },
     },
-
+    Booking: {
+      component: Booking,
+      options: {
+        topBar: { largeTitle: { visible: false } },
+        bottomTabs: { visible: false },
+      },
+    },
     Sample: {
       component: Sample,
       options: {

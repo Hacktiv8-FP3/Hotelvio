@@ -2,6 +2,7 @@ import React from 'react';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { colors } from './color';
+
 export const facilitiesIcon = [
   {
     id: 1,
@@ -10,8 +11,8 @@ export const facilitiesIcon = [
   },
   {
     id: 2,
-    name: 'pet',
-    icon: <MaterialIcon name='pet' size={20} color={colors.black} />,
+    name: 'pets',
+    icon: <MaterialIcon name='pets' size={20} color={colors.black} />,
   },
   {
     id: 3,

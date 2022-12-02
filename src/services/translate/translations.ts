@@ -5,8 +5,9 @@ export const en = {
       search: 'Search',
       checkIn: 'Check in Date',
       checkOut: 'Check out Date',
+      rooms: 'Rooms',
       guest: {
-        title: 'Guest',
+        title: 'Guests',
         adult: 'Adult',
         children: {
           title: 'Children',
@@ -22,21 +23,32 @@ export const en = {
     cities: 'Kota-kota di Indonesia',
     popular: 'Tujuan Terpopuler',
   },
+  hotelDetail: {
+    book: 'Book this hotel',
+    continue: 'Continue',
+  },
   settings: {
     title: 'Settings',
+    logout: 'Logout',
   },
-  example: {
-    title: 'Example',
+  login: {
+    title: 'Login to your account',
+    button: 'Login',
   },
-  section: {
-    navigation: {
-      title: 'Navigation',
-      button: {
-        push: 'Push →',
-        show: 'Show ↑',
-        back: '← Back',
-      },
+  booking: {
+    title: 'Reservation',
+    contact: {
+      title: 'Contact Details',
+      firstName: 'First Name',
+      lastName: 'Last Name',
+      email: 'Email',
+      phone: 'Phone Number',
     },
+    detail: {
+      title: 'Booking Details',
+      total: 'Total',
+    },
+    button: 'Switch to purchase',
   },
 };
 
@@ -47,8 +59,9 @@ export const id = {
       search: 'Cari',
       checkIn: 'Tanggal Check in',
       checkOut: 'Tanggal Check out',
+      rooms: 'Kamar',
       guest: {
-        title: 'Tamu',
+        title: 'Kamar',
         adult: 'Dewasa',
         children: {
           title: 'Anak-anak',
@@ -63,5 +76,32 @@ export const id = {
     },
     cities: 'Cities in Indonesia',
     popular: 'Popular Destinations',
+  },
+  hotelDetail: {
+    book: 'Pesan hotel ini',
+    continue: 'Lanjutkan',
+  },
+  settings: {
+    title: 'Pengaturan',
+    logout: 'Keluar',
+  },
+  login: {
+    title: 'Masuk ke akun Anda',
+    button: 'Masuk',
+  },
+  booking: {
+    title: 'Reservasi',
+    contact: {
+      title: 'Detail Kontak',
+      firstName: 'Nama depan',
+      lastName: 'Nama belakang',
+      email: 'Email',
+      phone: 'Nomor telepon',
+    },
+    detail: {
+      title: 'Detail Reservasi',
+      total: 'Total',
+    },
+    button: 'Geser untuk membeli',
   },
 };

@@ -1,32 +1,40 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { RootState } from './reducer';
 
-export interface InitState {
-  isLogin: boolean;
-  user: any;
-}
 const user = {
   email: 'user@gmail.com',
   password: 'user123',
   firstName: 'User',
   lastName: 'Hotelvio',
+  phone: '081234567890',
   gender: true,
 };
-const intialState: InitState = {
+
+export interface InitState {
+  isLogin: boolean;
+  user?: typeof user;
+}
+
+const intialState = {
   isLogin: false,
-  user: user,
-};
+  user: {},
+} as InitState;
 
 export const loginSlice = createSlice({
   name: 'Login',
   initialState: intialState,
   reducers: {
-    login: (state) => {
-      state.isLogin = true;
+    login: (state, action) => {
+      if (
+        action.payload.email === user.email &&
+        action.payload.password === user.password
+      ) {
+        state.isLogin = true;
+        state.user = user;
+      }
     },
     logout: (state) => {
-      state.isLogin = intialState.isLogin;
-      state.user = intialState.user;
+      state.isLogin = false;
+      state.user = undefined;
     },
     editData: (state, action) => {
       state.user = action.payload.user;

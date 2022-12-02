@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
 import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
+import { setSelectedHotel } from '../redux/Property';
 import { screens } from '../screens';
 import { HotelDetailProps } from '../screens/hotel-detail';
 import { colors } from '../utils/color';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { addFavorite, removeFavorite } from '../redux/favorites';
+import thousandAndDecimalSeparator from '../utils/NumberFormatter';
 
 export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
   data,
@@ -16,7 +18,11 @@ export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
   const { favorites } = useAppSelector((state) => state.favorites);
   const dispatch = useAppDispatch();
   const push = () => {
-    screens.push<HotelDetailProps>(componentId, 'HotelDetail', { id: data.id });
+    dispatch(setSelectedHotel(data));
+    screens.push<HotelDetailProps>(componentId, 'HotelDetail', {
+      id: data.id,
+      price: data.price,
+    });
   };
 
   const isFavorite = () => {
@@ -61,7 +67,7 @@ export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
         </View>
         <View>
           <Text style={styles['text-price']}>
-            ${Number(data.price).toFixed(2)}
+            {thousandAndDecimalSeparator(data.price)}
           </Text>
           <Text style={styles['text-status']}>/per night</Text>
         </View>
@@ -75,21 +81,20 @@ export const HotelCardLoading: React.FC = () => {
     <ContentLoader
       width='100%'
       height={160}
-      viewBox='0 0 400 160'
+      viewBox='0 0 450 160'
       backgroundColor='#f0f0f0'
       foregroundColor='#dedede'
-      style={{ marginTop: 20 }}
     >
       <Rect x='0' y='125' rx='4' ry='4' width='70%' height='9' />
       <Rect x='0' y='138' rx='3' ry='3' width='20%' height='6' />
-      <Rect x='0' y='0' rx='10' ry='10' width='99%' height='120' />
+      <Rect x='' y='0' rx='10' ry='10' width='100%' height='120' />
     </ContentLoader>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginBottom: 20,
     width: '99%',
     justifyContent: 'center',
     alignItems: 'center',

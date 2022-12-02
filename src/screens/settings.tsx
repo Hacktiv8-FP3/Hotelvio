@@ -26,31 +26,24 @@ import { screens } from '.';
 import { navButtons } from '../services/navigation/buttons';
 import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
 import { useServices } from '../services';
-import { useDispatch, useSelector } from 'react-redux';
 import { editData, logout } from '../redux/user';
 import { Button } from '../components/button';
-import { RootState } from '../redux/reducer';
 import { colors } from '../utils/color';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { iOSUIKit } from 'react-native-typography';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
 
 export const Settings: ScreenComponent = observer(({ componentId }) => {
   const { ui } = useStores();
-  const { nav } = useServices();
+  const { nav, t } = useServices();
 
   // State
   const [appearance, setAppearance] = useState(ui.appearance);
   const [language, setLanguage] = useState(ui.language);
-  const dispatch = useDispatch();
-  const state = useSelector((state: RootState) => state.login);
-  const [user, setUser] = useState(state.user);
+  const dispatch = useAppDispatch();
+  const { isLogin, user: userState } = useAppSelector(({ login }) => login);
+  const [user, setUser] = useState(userState);
   const [editable, setEditable] = useState(false);
-
-  useEffect(() => {
-    if (!state.isLogin) {
-      screens.push(componentId, 'Login', { type: 'push' });
-    }
-  }, [state]);
 
   // Computed
   const unsavedChanges =
@@ -89,8 +82,11 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
   };
   useNavigationButtonPress(handleSave, componentId, navButtons.save.id);
 
-  const handleLogout = () => {
-    dispatch(logout());
+  const onPress = () => {
+    if (isLogin) {
+      return dispatch(logout());
+    }
+    return screens.show('Login');
   };
 
   const handleSaveData = () => {
@@ -104,105 +100,108 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
   return (
     <View flex bg-bgColor>
       <ScrollView contentInsetAdjustmentBehavior='always'>
-        <View>
-          <View
-            style={{
-              paddingHorizontal: 20,
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Text style={iOSUIKit.title3Emphasized}>Profile</Text>
-            <TouchableOpacity
-              onPress={() => {
-                setEditable((state) => !state);
-                state && handleSaveData();
+        {user && (
+          <View>
+            <View
+              style={{
+                paddingHorizontal: 20,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
               }}
-              style={styles.editButton}
             >
-              <Text style={styles.text}>{editable ? 'Save' : 'Edit'}</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View
-            style={{
-              paddingHorizontal: 25,
-            }}
-          >
-            <View>
-              <Text style={iOSUIKit.subhead}>Email</Text>
-              <TextInput
-                value={user.email}
-                editable={editable}
-                placeholder='email'
-                style={styles.input}
-                onChangeText={(text: any) =>
-                  setUser((currentVal: any) => ({ ...currentVal, email: text }))
-                }
-              />
-            </View>
-            <View>
-              <Text style={iOSUIKit.subhead}>First Name</Text>
-              <TextInput
-                value={user.firstName}
-                editable={editable}
-                placeholder='First Name'
-                style={styles.input}
-                onChangeText={(text: any) =>
-                  setUser((currentVal: any) => ({
-                    ...currentVal,
-                    firstName: text,
-                  }))
-                }
-              />
-            </View>
-            <View>
-              <Text style={iOSUIKit.subhead}>Last Name</Text>
-              <TextInput
-                value={user.lastName}
-                editable={editable}
-                placeholder='Last Name'
-                style={styles.input}
-                onChangeText={(text: any) =>
-                  setUser((currentVal: any) => ({
-                    ...currentVal,
-                    lastName: text,
-                  }))
-                }
-              />
-            </View>
-            <View>
-              <Text style={iOSUIKit.subhead}>Gender</Text>
-              <RadioGroup
-                initialValue={true}
-                onValueChange={(value: any) => {
-                  console.log(value);
-                  setUser((user: Boolean) => ({ ...user, gender: value }));
-                  console.log(user);
+              <Text style={iOSUIKit.title3Emphasized}>Profile</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setEditable((state) => !state);
+                  userState && handleSaveData();
                 }}
-                style={styles.radio}
+                style={styles.editButton}
               >
-                <View style={styles.radioInput}>
-                  <RadioButton
-                    value={false}
-                    label={'Female'}
-                    color={colors.blue}
-                    disabled={!editable}
-                  />
-                </View>
-                <View style={styles.radioInput}>
-                  <RadioButton
-                    value={true}
-                    label={'Male'}
-                    color={colors.blue}
-                    disabled={!editable}
-                  />
-                </View>
-              </RadioGroup>
+                <Text style={styles.text}>{editable ? 'Save' : 'Edit'}</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View
+              style={{
+                paddingHorizontal: 25,
+              }}
+            >
+              <View>
+                <Text style={iOSUIKit.subhead}>Email</Text>
+                <TextInput
+                  value={userState?.email}
+                  editable={editable}
+                  placeholder='email'
+                  style={styles.input}
+                  onChangeText={(text: any) =>
+                    setUser((currentVal: any) => ({
+                      ...currentVal,
+                      email: text,
+                    }))
+                  }
+                />
+              </View>
+              <View>
+                <Text style={iOSUIKit.subhead}>First Name</Text>
+                <TextInput
+                  value={userState?.firstName}
+                  editable={editable}
+                  placeholder='First Name'
+                  style={styles.input}
+                  onChangeText={(text: any) =>
+                    setUser((currentVal: any) => ({
+                      ...currentVal,
+                      firstName: text,
+                    }))
+                  }
+                />
+              </View>
+              <View>
+                <Text style={iOSUIKit.subhead}>Last Name</Text>
+                <TextInput
+                  value={userState?.lastName}
+                  editable={editable}
+                  placeholder='Last Name'
+                  style={styles.input}
+                  onChangeText={(text: any) =>
+                    setUser((currentVal: any) => ({
+                      ...currentVal,
+                      lastName: text,
+                    }))
+                  }
+                />
+              </View>
+              <View>
+                <Text style={iOSUIKit.subhead}>Gender</Text>
+                <RadioGroup
+                  initialValue={true}
+                  onValueChange={(value: boolean) => {
+                    setUser({ ...user, gender: value });
+                  }}
+                  style={styles.radio}
+                >
+                  <View style={styles.radioInput}>
+                    <RadioButton
+                      value={false}
+                      label={'Female'}
+                      color={colors.blue}
+                      disabled={!editable}
+                    />
+                  </View>
+                  <View style={styles.radioInput}>
+                    <RadioButton
+                      value={true}
+                      label={'Male'}
+                      color={colors.blue}
+                      disabled={!editable}
+                    />
+                  </View>
+                </RadioGroup>
+              </View>
             </View>
           </View>
-        </View>
+        )}
 
         <Section title={'UI'}>
           <View paddingV-s1>
@@ -241,7 +240,9 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
                 onChangeIndex={handleLanguageIndexChange}
               />
             </Row>
-            <Button onPress={handleLogout}>Logout</Button>
+            <Button onPress={onPress}>
+              {isLogin ? t.do('settings.logout') : t.do('login.button')}
+            </Button>
           </View>
         </Section>
       </ScrollView>

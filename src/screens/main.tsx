@@ -1,13 +1,7 @@
 import { GuestModal } from '../components/guest-modal';
-import React, { createRef, useEffect, useRef, useState } from 'react';
-import { ScrollView, StyleSheet, TextInput } from 'react-native';
-import {
-  DateTimePicker,
-  View,
-  Incubator,
-  ExpandableSection,
-  TouchableOpacity,
-} from 'react-native-ui-lib';
+import React, { useEffect, useRef, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
+import { View, Incubator, TouchableOpacity } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
 import { observer } from 'mobx-react';
 import { HotelCard, HotelCardLoading } from '../components/hotel-card';
@@ -15,16 +9,16 @@ import { HotelCard, HotelCardLoading } from '../components/hotel-card';
 import { useServices } from '../services';
 
 import { Section } from '../components/section';
-import { Row } from '../components/row';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
 import { ImageCard } from '../components/image-card';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Input } from '../components/Input';
 import { Modalize } from 'react-native-modalize';
 import { colors } from '../utils/color';
 import { getHotelByCategory } from '../redux/Property';
 import Animated from 'react-native-reanimated';
 import AgeModal from '../components/age-modal';
+import useDebounce from '../utils/useDebounce';
+import FilterInput from '../components/filter-input';
 
 const { TextField } = Incubator;
 
@@ -41,44 +35,35 @@ const popularCity = [
 
 export const Main: ScreenComponent = observer(({ componentId }) => {
   const { t } = useServices();
-  const { data, loading } = useAppSelector((state) => state.property);
-  const { guests } = useAppSelector(({ guest }) => guest);
+  const { data, loading } = useAppSelector(({ property }) => property);
+  const { rooms, checkIn, checkOut } = useAppSelector(({ guest }) => guest);
   const dispatch = useAppDispatch();
-  const searchRef = createRef<TextInput>();
+  const [search, setSearch] = useState<string>();
+  const debouncedSearch = useDebounce(search, 500);
+
   const [expanded, setExpanded] = useState(false);
   const [category, setCategory] = useState('Indonesia');
-  const [checkInDate, setCheckInDate] = useState<Date>();
-  const [checkOutDate, setCheckOutDate] = useState<Date>();
   const guestModalRef = useRef<Modalize>(null);
   const ageModalRef = useRef<Modalize>(null);
-
-  const onOpenGuestModal = () => {
-    guestModalRef.current?.open();
-  };
 
   useEffect(() => {
     dispatch(
       getHotelByCategory({
-        category: category,
+        category: debouncedSearch ? debouncedSearch + category : category,
         checkOutDate: {
-          day: checkOutDate ? checkOutDate.getDate() : new Date().getDate() + 7,
-          month: checkOutDate ? checkOutDate.getMonth() : new Date().getMonth(),
-          year: checkOutDate
-            ? checkOutDate.getFullYear()
-            : new Date().getFullYear(),
+          day: checkOut ? checkOut.getDate() : new Date().getDate() + 7,
+          month: checkOut ? checkOut.getMonth() : new Date().getMonth(),
+          year: checkOut ? checkOut.getFullYear() : new Date().getFullYear(),
         },
         checkInDate: {
-          day: checkInDate ? checkInDate.getDate() : new Date().getDate(),
-          month: checkInDate ? checkInDate.getMonth() : new Date().getMonth(),
-          year: checkInDate
-            ? checkInDate.getFullYear()
-            : new Date().getFullYear(),
+          day: checkIn ? checkIn.getDate() : new Date().getDate(),
+          month: checkIn ? checkIn.getMonth() : new Date().getMonth(),
+          year: checkIn ? checkIn.getFullYear() : new Date().getFullYear(),
         },
-        adults: guests.adults,
-        children: guests.children,
+        rooms: rooms,
       })
     );
-  }, [category, guests, checkInDate, checkOutDate]);
+  }, [category, rooms, checkIn, checkOut]);
 
   return (
     <View flex bg-bgColor>
@@ -87,7 +72,8 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
           <TextField
             marginV-s2
             placeholder={t.do('home.filter.search')}
-            ref={searchRef}
+            value={search}
+            onChangeText={setSearch}
             maxLength={29}
             fieldStyle={[styles.inputField, styles.bgGray]}
             leadingAccessory={
@@ -104,52 +90,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
               </TouchableOpacity>
             }
           />
-          <ExpandableSection expanded={expanded}>
-            <Row spread style={[styles.inputField, styles.bgGray]} marginV-s2>
-              <Row style={{ width: '50%' }}>
-                <DateTimePicker
-                  migrateTextField
-                  mode={'date'}
-                  minimumDate={new Date()}
-                  value={checkInDate}
-                  onChange={(date: Date) => setCheckInDate(date)}
-                  renderInput={({ value }: { value: string }) => (
-                    <Input
-                      icon='calendar'
-                      title={t.do('home.filter.checkIn')}
-                      value={value}
-                    />
-                  )}
-                />
-              </Row>
-              <Row row style={{ width: '50%' }}>
-                <DateTimePicker
-                  migrateTextField
-                  mode={'date'}
-                  minimumDate={new Date()}
-                  value={checkOutDate}
-                  onChange={(date: Date) => setCheckOutDate(date)}
-                  renderInput={({ value }: { value: string }) => (
-                    <Input
-                      icon='calendar'
-                      title={t.do('home.filter.checkOut')}
-                      value={value}
-                    />
-                  )}
-                />
-              </Row>
-            </Row>
-            <View style={[styles.inputField, styles.bgGray]} marginV-s2>
-              <TouchableOpacity onPress={onOpenGuestModal}>
-                <Input
-                  icon='user'
-                  value={`${guests.adults + guests.children.length - 1} ${t.do(
-                    'home.filter.guest.title'
-                  )}`}
-                />
-              </TouchableOpacity>
-            </View>
-          </ExpandableSection>
+          <FilterInput expanded={expanded} guestModalRef={guestModalRef} />
         </Section>
         <Section title={t.do('home.cities')}>
           <ScrollView
@@ -236,9 +177,5 @@ const styles = StyleSheet.create({
   },
   bgGray: {
     backgroundColor: colors.gray,
-  },
-  borderGray: {
-    borderColor: colors.grayBorder,
-    borderWidth: 1,
   },
 });

@@ -18,8 +18,10 @@ import { useAppDispatch, useAppSelector } from '../utils/redux';
 import {
   addAdult,
   addChild,
+  addRoom,
   removeAdult,
   removeChild,
+  removeRoom,
   selectChild,
 } from '../redux/guest';
 
@@ -29,8 +31,24 @@ type Props = {
 
 export const GuestModal: React.FC<Props> = ({ modalRef }) => {
   const { t } = useServices();
-  const { guests } = useAppSelector(({ guest }) => guest);
+  const { rooms } = useAppSelector(({ guest }) => guest);
   const dispatch = useAppDispatch();
+
+  const calculateAdult = () => {
+    let total = 0;
+    rooms.forEach((room) => {
+      total += room.adults;
+    });
+    return total;
+  };
+
+  const calculateChild = () => {
+    let total = 0;
+    rooms.forEach((room) => {
+      total += room.children.length;
+    });
+    return total;
+  };
 
   const onOpenModal = (index: number) => {
     modalRef.current?.open();
@@ -40,8 +58,22 @@ export const GuestModal: React.FC<Props> = ({ modalRef }) => {
   return (
     <>
       <Text style={iOSUIKit.title3Emphasized} marginV-s2>
-        {t.do('home.filter.guest.title')}
+        {`${t.do('home.filter.rooms')} & ${t.do('home.filter.guest.title')}`}
       </Text>
+      <Text style={iOSUIKit.callout} marginV-s2>
+        {t.do('home.filter.rooms')}
+      </Text>
+      <Row style={[styles.inputField, styles.borderGray]} center paddingH-s7>
+        <Button flex-1 onPress={() => dispatch(removeRoom())}>
+          -
+        </Button>
+        <Text center flex-3 style={iOSUIKit.bodyEmphasized}>
+          {rooms.length}
+        </Text>
+        <Button flex-1 onPress={() => dispatch(addRoom())}>
+          +
+        </Button>
+      </Row>
       <Text style={iOSUIKit.callout} marginV-s2>
         {t.do('home.filter.guest.adult')}
       </Text>
@@ -50,7 +82,7 @@ export const GuestModal: React.FC<Props> = ({ modalRef }) => {
           -
         </Button>
         <Text center flex-3 style={iOSUIKit.bodyEmphasized}>
-          {guests.adults}
+          {calculateAdult()}
         </Text>
         <Button flex-1 onPress={() => dispatch(addAdult())}>
           +
@@ -64,45 +96,47 @@ export const GuestModal: React.FC<Props> = ({ modalRef }) => {
           -
         </Button>
         <Text center flex-3 style={iOSUIKit.bodyEmphasized}>
-          {guests.children.length || 0}
+          {calculateChild()}
         </Text>
         <Button flex-1 onPress={() => dispatch(addChild())}>
           +
         </Button>
       </Row>
-      {guests.children.length > 0 && (
+      {calculateChild() > 0 && (
         <>
           <Text style={iOSUIKit.callout} marginV-s2>
             {t.do('home.filter.guest.children.subtitle')}
           </Text>
 
           <View row style={{ flexWrap: 'wrap' }}>
-            {guests.children.map((_, index) => (
-              <TouchableOpacity key={index}>
-                <Chip
-                  label={`${t.do('home.filter.guest.children.chip')} ${
-                    index + 1
-                  }`}
-                  rightElement={
-                    <Ionicons
-                      name='ios-chevron-down-circle-outline'
-                      size={18}
-                      color={
-                        guests.children[index].age ? colors.blue : colors.red
-                      }
-                      style={{
-                        marginLeft: Spacings.s1,
-                        marginRight: Spacings.s2,
-                      }}
-                    />
-                  }
-                  containerStyle={{
-                    margin: Spacings.s1,
-                  }}
-                  onPress={() => onOpenModal(index)}
-                />
-              </TouchableOpacity>
-            ))}
+            {rooms.map((room) =>
+              room.children.map((_, index) => (
+                <TouchableOpacity key={index}>
+                  <Chip
+                    label={`${t.do('home.filter.guest.children.chip')} ${
+                      index + 1
+                    }`}
+                    rightElement={
+                      <Ionicons
+                        name='ios-chevron-down-circle-outline'
+                        size={18}
+                        color={
+                          room.children[index].age ? colors.blue : colors.red
+                        }
+                        style={{
+                          marginLeft: Spacings.s1,
+                          marginRight: Spacings.s2,
+                        }}
+                      />
+                    }
+                    containerStyle={{
+                      margin: Spacings.s1,
+                    }}
+                    onPress={() => onOpenModal(index)}
+                  />
+                </TouchableOpacity>
+              ))
+            )}
           </View>
         </>
       )}
@@ -112,7 +146,6 @@ export const GuestModal: React.FC<Props> = ({ modalRef }) => {
 
 const styles = StyleSheet.create({
   inputField: {
-    padding: 16,
     borderRadius: 15,
   },
   borderGray: {

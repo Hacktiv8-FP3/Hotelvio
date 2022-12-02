@@ -1,6 +1,6 @@
-import React, { PropsWithChildren, useEffect } from 'react';
+import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import { Image, ScrollView, StyleSheet } from 'react-native';
-import { FloatingButton, Text, View } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import { colors } from '../utils/color';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { facilitiesIcon } from '../utils/facilities';
@@ -11,12 +11,24 @@ import { useAppDispatch, useAppSelector } from '../utils/redux';
 
 import { getHotelDetail } from '../redux/Detail';
 import { ScreenComponent } from 'rnn-screens';
+import { useServices } from '../services';
+import { screens } from '.';
+import { Modalize, useModalize } from 'react-native-modalize';
+import { Button } from '../components/button';
+import { Row } from '../components/row';
+import thousandAndDecimalSeparator from '../utils/NumberFormatter';
+import { iOSUIKit } from 'react-native-typography';
+import FilterInput from '../components/filter-input';
+import { GuestModal } from '../components/guest-modal';
+import Animated from 'react-native-reanimated';
+import AgeModal from '../components/age-modal';
 
 export type HotelDetailProps = {
   id: string;
+  price: number;
 };
 
-const facilities = ['restaurant', 'swimming', 'wifi', 'parking', 'pet'];
+const facilities = ['restaurant', 'swimming', 'wifi', 'parking', 'pets'];
 
 export const HotelSection: React.FC<PropsWithChildren<{ title: string }>> = ({
   title,
@@ -29,14 +41,36 @@ export const HotelSection: React.FC<PropsWithChildren<{ title: string }>> = ({
     </View>
   );
 };
-export const HotelDetail: ScreenComponent<HotelDetailProps> = ({ id }) => {
+
+export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
+  componentId,
+  id,
+  price,
+}) => {
+  const { t } = useServices();
   const { data, loading }: { data: any; loading: boolean } = useAppSelector(
-    (state) => state.detail
+    ({ detail }) => detail
   );
+  const { isLogin } = useAppSelector(({ login }) => login);
   const dispatch = useAppDispatch();
+  const { ref, open } = useModalize();
+  const guestModalRef = useRef<Modalize>(null);
+  const ageModalRef = useRef<Modalize>(null);
+
+  const onOpenModal = () => {
+    if (isLogin) {
+      return open('top');
+    }
+    return screens.show('Login');
+  };
+
+  const onPressContinue = () => {
+    screens.push(componentId, 'Booking');
+  };
 
   useEffect(() => {
     dispatch(getHotelDetail(id));
+    console.log(id);
   }, []);
 
   return (
@@ -97,12 +131,47 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({ id }) => {
           </HotelSection>
         </View>
       </ScrollView>
-      <FloatingButton
-        visible
-        button={{
-          label: 'Book this hotel',
-          onPress: () => console.log('approved'),
-        }}
+
+      <Modalize
+        ref={ref}
+        alwaysOpen={100}
+        handlePosition='inside'
+        modalStyle={styles.modal}
+        childrenStyle={{ padding: 16 }}
+        modalHeight={350}
+      >
+        <Row spread>
+          <Text style={[iOSUIKit.title3Emphasized, { color: colors.blue }]}>
+            {thousandAndDecimalSeparator(price)}
+            <Text style={iOSUIKit.subhead}> / night</Text>
+          </Text>
+          <Button onPress={onOpenModal}>{t.do('hotelDetail.book')}</Button>
+        </Row>
+        <View marginT-s4>
+          <FilterInput guestModalRef={guestModalRef} />
+          <Button onPress={onPressContinue}>
+            {t.do('hotelDetail.continue')}
+          </Button>
+        </View>
+      </Modalize>
+
+      <Modalize
+        ref={guestModalRef}
+        adjustToContentHeight
+        childrenStyle={{ padding: 16 }}
+      >
+        <GuestModal modalRef={ageModalRef} />
+      </Modalize>
+
+      <Modalize
+        ref={ageModalRef}
+        adjustToContentHeight
+        childrenStyle={{ padding: 16 }}
+        customRenderer={
+          <Animated.View>
+            <AgeModal />
+          </Animated.View>
+        }
       />
     </View>
   );
@@ -143,6 +212,12 @@ const styles = StyleSheet.create({
   'facilities-container': {
     flexDirection: 'row',
     marginTop: 10,
+  },
+  modal: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.25,
+    shadowRadius: 16,
   },
   //   starRate: {
   //     position: 'absolute',
