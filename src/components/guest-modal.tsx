@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { Modalize } from 'react-native-modalize';
 import { iOSUIKit } from 'react-native-typography';
 import {
   Chip,
@@ -8,13 +9,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native-ui-lib';
-import { useServices } from '../services';
-import { colors } from '../utils/color';
-import { Button } from './button';
-import { Row } from './row';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Modalize } from 'react-native-modalize';
-import { useAppDispatch, useAppSelector } from '../utils/redux';
+
 import {
   addAdult,
   addChild,
@@ -24,6 +20,11 @@ import {
   removeRoom,
   selectChild,
 } from '../redux/guest';
+import { useServices } from '../services';
+import { colors } from '../utils/color';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+import { Button } from './button';
+import { Row } from './row';
 
 type Props = {
   modalRef: React.RefObject<Modalize>;

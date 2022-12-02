@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
-import { Text, View } from 'react-native-ui-lib';
 import { iOSUIKit } from 'react-native-typography';
+import { Text, View } from 'react-native-ui-lib';
 
 export const Section: React.FC<
   PropsWithChildren<{

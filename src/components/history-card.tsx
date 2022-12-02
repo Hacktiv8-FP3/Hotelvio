@@ -1,17 +1,19 @@
 import React from 'react';
-import { colors } from '../utils/color';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Button } from '../components/button';
-import { View, Text, Image } from 'react-native-ui-lib';
-import { iOSUIKit } from 'react-native-typography';
 import { StyleSheet } from 'react-native';
+import { iOSUIKit } from 'react-native-typography';
+import { Image, Text, View } from 'react-native-ui-lib';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import { Button } from '../components/button';
 import { screens } from '../screens';
+import { colors } from '../utils/color';
+import { History } from '../utils/types';
 
 export const HistoryCard = ({
   data,
   componentId,
 }: {
-  data: any;
+  data: History;
   componentId: string;
 }) => {
   const push = () => {
@@ -37,7 +39,7 @@ export const HistoryCard = ({
             paddingLeft: 10,
           }}
         >
-          Booking date : {data.bookDate}
+          Booking date : {data.bookDate.toLocaleDateString()}
         </Text>
         <View
           style={{

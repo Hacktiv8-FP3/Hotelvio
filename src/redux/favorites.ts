@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface favoritesState {
-  favorites: any[];
+import { HotelData } from '../utils/types';
+
+interface FavoritesState {
+  favorites: HotelData[];
 }
-const intialState: favoritesState = {
+
+const intialState: FavoritesState = {
   favorites: [],
 };
+
 const favoritesSlice = createSlice({
   name: 'favorites',
   initialState: intialState,
@@ -20,5 +24,6 @@ const favoritesSlice = createSlice({
     },
   },
 });
+
 export const { addFavorite, removeFavorite } = favoritesSlice.actions;
 export default favoritesSlice.reducer;

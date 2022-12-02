@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { View, Text } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
 import { Row } from './row';
 
 type Props = {

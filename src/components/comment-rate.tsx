@@ -1,5 +1,6 @@
 import React from 'react';
 import { Avatar, Text, View } from 'react-native-ui-lib';
+
 import { colors } from '../utils/color';
 
 export const CommentRate: React.FC<{ comment?: string }> = ({ comment }) => {

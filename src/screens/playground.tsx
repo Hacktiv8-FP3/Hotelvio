@@ -1,9 +1,10 @@
+import { FlashList } from '@shopify/flash-list';
+import { observer } from 'mobx-react';
 import React from 'react';
+import FastImage from 'react-native-fast-image';
 import { Text, View } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
-import { FlashList } from '@shopify/flash-list';
-import FastImage from 'react-native-fast-image';
-import { observer } from 'mobx-react';
+
 import { randomStr } from '../utils/help';
 
 export const Playground: ScreenComponent = observer(() => {

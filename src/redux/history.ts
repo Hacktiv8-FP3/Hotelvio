@@ -1,11 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface historyState {
-  histories: any[];
+import { History } from '../utils/types';
+
+interface HistoryState {
+  histories: History[];
 }
-const intialState: historyState = {
+
+const intialState: HistoryState = {
   histories: [],
 };
+
 const historySlice = createSlice({
   name: 'favorites',
   initialState: intialState,
@@ -15,5 +19,6 @@ const historySlice = createSlice({
     },
   },
 });
+
 export const { addHistory } = historySlice.actions;
 export default historySlice.reducer;

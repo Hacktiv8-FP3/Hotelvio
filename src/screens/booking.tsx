@@ -1,21 +1,21 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Incubator, Text, View } from 'react-native-ui-lib';
-import { ScreenComponent } from 'rnn-screens';
-import { colors } from '../utils/color';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useServices } from '../services';
-import { Section } from '../components/section';
-import { useAppDispatch, useAppSelector } from '../utils/redux';
-import { HotelCard } from '../components/hotel-card';
-import { Row } from '../components/row';
-import calculateGuest from '../utils/calculateGuest';
-import thousandAndDecimalSeparator from '../utils/NumberFormatter';
 import { ScrollView } from 'react-native-gesture-handler';
 import { iOSUIKit } from 'react-native-typography';
+import { Incubator, Text, View } from 'react-native-ui-lib';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import SwipeButton from 'rn-swipe-button';
-import { screens } from '.';
+import { ScreenComponent } from 'rnn-screens';
+
+import { HotelCard } from '../components/hotel-card';
+import { Row } from '../components/row';
+import { Section } from '../components/section';
 import { addHistory } from '../redux/history';
+import { useServices } from '../services';
+import calculateGuest from '../utils/calculateGuest';
+import { colors } from '../utils/color';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+import { screens } from '.';
 
 const { TextField } = Incubator;
 
@@ -70,7 +70,7 @@ export const Booking: ScreenComponent = ({ componentId }) => {
           />
         </Section>
         <Section title={t.do('booking.detail.title')}>
-          <HotelCard data={selectedHotel} componentId={componentId} />
+          <HotelCard data={selectedHotel!} componentId={componentId} />
           <View bg-white style={styles.inputField}>
             <Row spread marginV-s1>
               <Text style={iOSUIKit.subhead}>
@@ -111,7 +111,7 @@ export const Booking: ScreenComponent = ({ componentId }) => {
                 {t.do('booking.detail.total')}
               </Text>
               <Text style={iOSUIKit.bodyEmphasized}>
-                {thousandAndDecimalSeparator(selectedHotel?.price)}
+                {selectedHotel?.price}
               </Text>
             </Row>
           </View>
@@ -132,9 +132,9 @@ export const Booking: ScreenComponent = ({ componentId }) => {
               checkIn: checkIn,
               checkOut: checkOut,
               hotel: selectedHotel,
-              guest: calculateGuest(rooms),
+              guests: calculateGuest(rooms),
               rooms: rooms.length,
-              bookDate: new Date().toISOString().split('T')[0],
+              bookDate: new Date(),
             };
             dispath(addHistory(data));
             screens.N.popToRoot(componentId);

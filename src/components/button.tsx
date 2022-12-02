@@ -1,8 +1,9 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { iOSUIKit } from 'react-native-typography';
-import { Text, View, ContainerModifiers } from 'react-native-ui-lib';
+import { ContainerModifiers, Text, View } from 'react-native-ui-lib';
 import { Bounceable } from 'rn-bounceable';
+
 import { colors } from '../utils/color';
 
 type Props = ContainerModifiers & {

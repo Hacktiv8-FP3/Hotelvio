@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native-ui-lib';
 import Animated, {
-  withSpring,
   useAnimatedStyle,
   useSharedValue,
+  withSpring,
 } from 'react-native-reanimated';
+import { Text, View } from 'react-native-ui-lib';
 import { Bounceable } from 'rn-bounceable';
 
 export const Reanimated2: React.FC = () => {

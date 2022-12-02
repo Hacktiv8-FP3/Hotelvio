@@ -1,16 +1,17 @@
-import React, { useCallback, useState } from 'react';
-import { Incubator, Text, TouchableOpacity, View } from 'react-native-ui-lib';
-import { login } from '../redux/user';
-import { colors } from '../utils/color';
-import { screens } from '.';
-import { ScreenComponent } from 'rnn-screens';
 import { observer } from 'mobx-react-lite';
-import { Button } from '../components/button';
-import { useAppDispatch, useAppSelector } from '../utils/redux';
-import { iOSUIKit } from 'react-native-typography';
-import { useServices } from '../services';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
+import { iOSUIKit } from 'react-native-typography';
+import { Incubator, Text, TouchableOpacity, View } from 'react-native-ui-lib';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ScreenComponent } from 'rnn-screens';
+
+import { Button } from '../components/button';
+import { login } from '../redux/user';
+import { useServices } from '../services';
+import { colors } from '../utils/color';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+import { screens } from '.';
 
 const { TextField } = Incubator;
 

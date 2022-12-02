@@ -1,6 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+
 import { httpClient } from '../services/api';
+import { HotelData } from '../utils/types';
+import { PropertiesItem } from '../utils/types/api';
 import { Guest } from './guest';
 
 const fetchCategoryId = (category: string) => {
@@ -15,11 +18,13 @@ const fetchCategoryId = (category: string) => {
     })
     .then((res) => res.data.sr[0].gaiaId);
 };
+
 interface Date {
   day: number;
   month: number;
   year: number;
 }
+
 const fetchPropertybyCategory = (
   id: string,
   rooms: Guest[],
@@ -43,17 +48,18 @@ const fetchPropertybyCategory = (
       sort: 'PRICE_RELEVANT',
     })
     .then((res) =>
-      res.data.data.propertySearch.properties.map((item: any) => {
+      res.data.data.propertySearch.properties.map((item: PropertiesItem) => {
         const data = {
           name: item.name,
           id: item.id,
-          price: item.price.lead.amount,
+          price: item.price.lead.formatted,
           image: item.propertyImage.image.url,
         };
         return data;
       })
     );
 };
+
 export const getHotelByCategory = createAsyncThunk(
   'getHotelByCategory',
   async ({
@@ -80,11 +86,18 @@ export const getHotelByCategory = createAsyncThunk(
   }
 );
 
+type PropertyState = {
+  loading: boolean;
+  error?: AxiosError;
+  data: HotelData[];
+  selectedHotel?: HotelData;
+};
+
 const intialState = {
   data: [],
-  selectedHotel: {},
   loading: false,
-};
+} as PropertyState;
+
 const propertySlice = createSlice({
   name: 'property',
   initialState: intialState,

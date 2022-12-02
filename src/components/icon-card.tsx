@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text, View } from 'react-native-ui-lib';
+
 import { colors } from '../utils/color';
 
 export const IconCard: React.FC<PropsWithChildren<{ text: string }>> = ({

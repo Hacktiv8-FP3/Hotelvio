@@ -1,18 +1,28 @@
+import { observer } from 'mobx-react';
 import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, TextInput } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
+import { iOSUIKit } from 'react-native-typography';
 import {
-  Text,
-  View,
-  SegmentedControl,
   Colors,
   RadioButton,
   RadioGroup,
+  SegmentedControl,
+  Text,
+  View,
 } from 'react-native-ui-lib';
 import { ScreenComponent } from 'rnn-screens';
-import { observer } from 'mobx-react';
 
-import { Section } from '../components/section';
+import { Button } from '../components/button';
 import { Row } from '../components/row';
+import { Section } from '../components/section';
+import { editData, logout } from '../redux/user';
+import { useServices } from '../services';
+import { navButtons } from '../services/navigation/buttons';
+import { useStores } from '../stores';
+import { colors } from '../utils/color';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
 import {
   appearances,
   appearancesUI,
@@ -21,17 +31,7 @@ import {
   languagesUI,
   languageUIToInternal,
 } from '../utils/types/enums';
-import { useStores } from '../stores';
 import { screens } from '.';
-import { navButtons } from '../services/navigation/buttons';
-import { useNavigationButtonPress } from 'react-native-navigation-hooks/dist';
-import { useServices } from '../services';
-import { editData, logout } from '../redux/user';
-import { Button } from '../components/button';
-import { colors } from '../utils/color';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { iOSUIKit } from 'react-native-typography';
-import { useAppDispatch, useAppSelector } from '../utils/redux';
 
 export const Settings: ScreenComponent = observer(({ componentId }) => {
   const { ui } = useStores();

@@ -1,8 +1,13 @@
 module.exports = {
   root: true,
-  extends: '@react-native-community',
+  extends: ['@react-native-community', 'plugin:import/recommended'],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: [
+    '@typescript-eslint',
+    'simple-import-sort',
+    'unused-imports',
+    'prettier',
+  ],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
@@ -13,10 +18,16 @@ module.exports = {
         'jsx-quotes': ['error', 'prefer-single'],
         'react-native/no-inline-styles': 'off',
         'react-hooks/exhaustive-deps': 'off',
+        'import/named': 'off',
+        'import/no-unresolved': 'off',
+        'import/namespace': 'off',
+        'comma-dangle': 'off',
       },
     },
   ],
   rules: {
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     'prettier/prettier': [
       'error',
       {

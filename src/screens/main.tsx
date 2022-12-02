@@ -1,24 +1,23 @@
-import { GuestModal } from '../components/guest-modal';
+import { observer } from 'mobx-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import { View, Incubator, TouchableOpacity } from 'react-native-ui-lib';
-import { ScreenComponent } from 'rnn-screens';
-import { observer } from 'mobx-react';
-import { HotelCard, HotelCardLoading } from '../components/hotel-card';
-
-import { useServices } from '../services';
-
-import { Section } from '../components/section';
-import { useAppDispatch, useAppSelector } from '../utils/redux';
-import { ImageCard } from '../components/image-card';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import { Modalize } from 'react-native-modalize';
-import { colors } from '../utils/color';
-import { getHotelByCategory } from '../redux/Property';
 import Animated from 'react-native-reanimated';
+import { Incubator, TouchableOpacity, View } from 'react-native-ui-lib';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ScreenComponent } from 'rnn-screens';
+
 import AgeModal from '../components/age-modal';
-import useDebounce from '../utils/useDebounce';
 import FilterInput from '../components/filter-input';
+import { GuestModal } from '../components/guest-modal';
+import { HotelCard, HotelCardLoading } from '../components/hotel-card';
+import { ImageCard } from '../components/image-card';
+import { Section } from '../components/section';
+import { getHotelByCategory } from '../redux/property';
+import { useServices } from '../services';
+import { colors } from '../utils/color';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+import useDebounce from '../utils/useDebounce';
 
 const { TextField } = Incubator;
 

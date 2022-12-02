@@ -1,20 +1,19 @@
-import { generateRNNScreens } from 'rnn-screens';
 import { gestureHandlerRootHOC as withGestureHandler } from 'react-native-gesture-handler';
-
-import { Main } from './main';
-import { Settings } from './settings';
+import { generateRNNScreens } from 'rnn-screens';
 
 import { withBottomTab } from '../services/navigation/options';
-import { Sample } from './_screen-sample';
-import { Playground } from './playground';
 import { withAppearance } from '../utils/hooks';
-import { Login } from './login';
-import { HotelDetail } from './hotel-detail';
-import { FavoriteScreen } from './favorites-screen';
 import { withRedux } from '../utils/providers';
+import { Sample } from './_screen-sample';
 import { Booking } from './booking';
+import { FavoriteScreen } from './favorites-screen';
 import { History } from './history';
 import { HistoryDetail } from './history-detail';
+import { HotelDetail } from './hotel-detail';
+import { Login } from './login';
+import { Main } from './main';
+import { Playground } from './playground';
+import { Settings } from './settings';
 
 export const screens = generateRNNScreens(
   {

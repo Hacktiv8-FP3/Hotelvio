@@ -1,9 +1,10 @@
 import {
-  StatusBarStyle as ExpoStatusBarStyle,
   setStatusBarStyle,
+  StatusBarStyle as ExpoStatusBarStyle,
 } from 'expo-status-bar';
 import { Color } from 'react-native-navigation';
 import { Colors, Typography } from 'react-native-ui-lib';
+
 import { stores } from '../stores';
 import { colors } from './color';
 import { Appearance } from './types/enums';

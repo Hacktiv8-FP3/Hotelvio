@@ -1,6 +1,7 @@
 import React from 'react';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
 import { colors } from './color';
 
 export const facilitiesIcon = [

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native-ui-lib';
+
 import { setCheckIn, setCheckOut } from '../redux/guest';
 import { useServices } from '../services';
 import calculateGuest from '../utils/calculateGuest';

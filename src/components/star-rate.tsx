@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, View } from 'react-native-ui-lib';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
 import { colors } from '../utils/color';
+
 export const StarRate: React.FC<{ star: number; style?: {} }> = ({
   star,
   style,

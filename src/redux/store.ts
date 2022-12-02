@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { MMKV } from 'react-native-mmkv';
-import { PersistConfig, persistStore, Storage } from 'redux-persist';
+import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
+import {
+  createTransform,
+  PersistConfig,
+  persistStore,
+  Storage,
+} from 'redux-persist';
+import persistReducer from 'redux-persist/es/persistReducer';
 import createSagaMiddleware from 'redux-saga';
 
-import persistReducer from 'redux-persist/es/persistReducer';
-import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
+import { decode, encode } from '../utils/dateTransform';
 import { rootReducers, RootState } from './reducer';
 
 // Setup Middlewares
@@ -38,7 +44,7 @@ const persistConfig: PersistConfig<RootState> = {
   storage: reduxStorage,
   // There is an issue in the source code of redux-persist (default setTimeout does not cleaning)
   timeout: undefined,
-  blacklist: ['guest'],
+  transforms: [createTransform(encode, decode)],
 };
 
 // Setup Reducers
@@ -60,7 +66,7 @@ const makeStore = () => store;
 // Setup Store persistence
 const persistor = persistStore(store);
 
-export { store, persistor };
+export { persistor, store };
 
 export type AppDispatch = typeof store.dispatch;
 export type AppStore = ReturnType<typeof makeStore>;

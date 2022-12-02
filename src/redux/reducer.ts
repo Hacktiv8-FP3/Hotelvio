@@ -1,10 +1,11 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import loginReducer from './user';
-import propertyReducer from './Property';
-import guestReducer from './guest';
-import detailReducer from './Detail';
+
+import detailReducer from './detail';
 import favoritesReducer from './favorites';
+import guestReducer from './guest';
 import historyReducer from './history';
+import propertyReducer from './property';
+import loginReducer from './user';
 
 export const rootReducers = combineReducers({
   login: loginReducer,

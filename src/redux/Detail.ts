@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
+
 import { httpClient } from '../services/api';
+import { HotelDetail } from '../utils/types';
 
 const fetchDetail = (id: string) => {
   return httpClient
@@ -35,10 +37,17 @@ export const getHotelDetail = createAsyncThunk(
   }
 );
 
+type DetailState = {
+  loading: boolean;
+  error?: AxiosError;
+  data?: HotelDetail;
+};
+
 const intialState = {
   data: {},
   loading: false,
-};
+} as DetailState;
+
 const detailSlice = createSlice({
   name: 'detail',
   initialState: intialState,

@@ -1,20 +1,21 @@
 import React from 'react';
+import { StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { iOSUIKit } from 'react-native-typography';
-import { View, Text } from 'react-native-ui-lib';
+import { Text, View } from 'react-native-ui-lib';
+
+import { HotelCard } from '../components/hotel-card';
 import { Row } from '../components/row';
 import { Section } from '../components/section';
 import { useServices } from '../services';
-import { StyleSheet } from 'react-native';
 import { colors } from '../utils/color';
-import thousandAndDecimalSeparator from '../utils/NumberFormatter';
-import { HotelCard } from '../components/hotel-card';
+import { History } from '../utils/types';
 
 export const HistoryDetail = ({
   data,
   componentId,
 }: {
-  data: any;
+  data: History;
   componentId: string;
 }) => {
   const { t } = useServices();
@@ -36,13 +37,17 @@ export const HistoryDetail = ({
                 <Text style={iOSUIKit.subhead}>
                   {t.do('home.filter.checkIn')}
                 </Text>
-                <Text style={iOSUIKit.bodyEmphasized}>{data.checkIn}</Text>
+                <Text style={iOSUIKit.bodyEmphasized}>
+                  {data.checkIn.toLocaleDateString()}
+                </Text>
               </Row>
               <Row spread marginV-s1>
                 <Text style={iOSUIKit.subhead}>
                   {t.do('home.filter.checkOut')}
                 </Text>
-                <Text style={iOSUIKit.bodyEmphasized}>{data.checkOut}</Text>
+                <Text style={iOSUIKit.bodyEmphasized}>
+                  {data.checkOut.toLocaleDateString()}
+                </Text>
               </Row>
               <Row spread marginV-s1>
                 <Text style={iOSUIKit.subhead}>
@@ -54,7 +59,7 @@ export const HistoryDetail = ({
                 <Text style={iOSUIKit.subhead}>
                   {t.do('home.filter.guest.title')}
                 </Text>
-                <Text style={iOSUIKit.bodyEmphasized}>{data.guest}</Text>
+                <Text style={iOSUIKit.bodyEmphasized}>{data.guests}</Text>
               </Row>
               <Row
                 spread
@@ -66,9 +71,7 @@ export const HistoryDetail = ({
                 <Text style={iOSUIKit.subhead}>
                   {t.do('booking.detail.total')}
                 </Text>
-                <Text style={iOSUIKit.bodyEmphasized}>
-                  {thousandAndDecimalSeparator(data.price)}
-                </Text>
+                <Text style={iOSUIKit.bodyEmphasized}>{data.hotel.price}</Text>
               </Row>
             </View>
           </View>

@@ -1,31 +1,30 @@
 import React, { PropsWithChildren, useEffect, useRef } from 'react';
 import { Image, ScrollView, StyleSheet } from 'react-native';
-import { Text, View } from 'react-native-ui-lib';
-import { colors } from '../utils/color';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { facilitiesIcon } from '../utils/facilities';
-import { IconCard } from '../components/icon-card';
-import { StarRate } from '../components/star-rate';
-import { CommentRate } from '../components/comment-rate';
-import { useAppDispatch, useAppSelector } from '../utils/redux';
-
-import { getHotelDetail } from '../redux/Detail';
-import { ScreenComponent } from 'rnn-screens';
-import { useServices } from '../services';
-import { screens } from '.';
 import { Modalize, useModalize } from 'react-native-modalize';
-import { Button } from '../components/button';
-import { Row } from '../components/row';
-import thousandAndDecimalSeparator from '../utils/NumberFormatter';
+import Animated from 'react-native-reanimated';
 import { iOSUIKit } from 'react-native-typography';
+import { Text, View } from 'react-native-ui-lib';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import { ScreenComponent } from 'rnn-screens';
+
+import AgeModal from '../components/age-modal';
+import { Button } from '../components/button';
+import { CommentRate } from '../components/comment-rate';
 import FilterInput from '../components/filter-input';
 import { GuestModal } from '../components/guest-modal';
-import Animated from 'react-native-reanimated';
-import AgeModal from '../components/age-modal';
+import { IconCard } from '../components/icon-card';
+import { Row } from '../components/row';
+import { StarRate } from '../components/star-rate';
+import { getHotelDetail } from '../redux/detail';
+import { useServices } from '../services';
+import { colors } from '../utils/color';
+import { facilitiesIcon } from '../utils/facilities';
+import { useAppDispatch, useAppSelector } from '../utils/redux';
+import { screens } from '.';
 
 export type HotelDetailProps = {
   id: string;
-  price: number;
+  price: string;
 };
 
 const facilities = ['restaurant', 'swimming', 'wifi', 'parking', 'pets'];
@@ -48,9 +47,7 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
   price,
 }) => {
   const { t } = useServices();
-  const { data, loading }: { data: any; loading: boolean } = useAppSelector(
-    ({ detail }) => detail
-  );
+  const { data, loading } = useAppSelector(({ detail }) => detail);
   const { isLogin } = useAppSelector(({ login }) => login);
   const dispatch = useAppDispatch();
   const { ref, open } = useModalize();
@@ -84,18 +81,18 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
         </View>
         <View style={styles['child-container']}>
           <View style={styles['information-container']}>
-            <Text style={styles['hotel-name']}>{data.name}</Text>
+            <Text style={styles['hotel-name']}>{data?.name}</Text>
             <Text style={styles.address}>
               <Ionicons
                 name='md-location-sharp'
                 size={20}
                 color={colors.blue}
               />
-              {data.location}
+              {data?.location}
             </Text>
           </View>
           <View style={{ marginTop: 10 }}>
-            <Text>{data.caption}</Text>
+            <Text>{data?.caption}</Text>
           </View>
 
           <HotelSection title='Facilities'>
@@ -117,7 +114,7 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
             </ScrollView>
           </HotelSection>
           <HotelSection title='Reviews'>
-            {!loading && <StarRate star={data.rating} />}
+            {!loading && <StarRate star={data?.rating!} />}
             <CommentRate
               comment={
                 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus aut recusandae dignissimos debitis praesentium possimus ex eos corrupti, autem illum illo et, eligendi explicabo, voluptas omnis distinctio numquam quo laborum.'
@@ -142,7 +139,7 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
       >
         <Row spread>
           <Text style={[iOSUIKit.title3Emphasized, { color: colors.blue }]}>
-            {thousandAndDecimalSeparator(price)}
+            {price}
             <Text style={iOSUIKit.subhead}> / night</Text>
           </Text>
           <Button onPress={onOpenModal}>{t.do('hotelDetail.book')}</Button>

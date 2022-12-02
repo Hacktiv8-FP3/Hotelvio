@@ -1,17 +1,18 @@
 import React from 'react';
 import ContentLoader, { Rect } from 'react-content-loader/native';
 import { StyleSheet } from 'react-native';
-import { Image, Text, View, TouchableOpacity } from 'react-native-ui-lib';
-import { setSelectedHotel } from '../redux/Property';
+import { Image, Text, TouchableOpacity, View } from 'react-native-ui-lib';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+
+import { addFavorite, removeFavorite } from '../redux/favorites';
+import { setSelectedHotel } from '../redux/property';
 import { screens } from '../screens';
 import { HotelDetailProps } from '../screens/hotel-detail';
 import { colors } from '../utils/color';
-import AntDesign from 'react-native-vector-icons/AntDesign';
 import { useAppDispatch, useAppSelector } from '../utils/redux';
-import { addFavorite, removeFavorite } from '../redux/favorites';
-import thousandAndDecimalSeparator from '../utils/NumberFormatter';
+import { HotelData } from '../utils/types';
 
-export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
+export const HotelCard: React.FC<{ data: HotelData; componentId: string }> = ({
   data,
   componentId,
 }) => {
@@ -65,10 +66,8 @@ export const HotelCard: React.FC<{ data: any; componentId: string }> = ({
           <Text style={styles['text-brand']}>{data.name}</Text>
           <Text style={styles['text-category']}>{data.category}</Text>
         </View>
-        <View>
-          <Text style={styles['text-price']}>
-            {thousandAndDecimalSeparator(data.price)}
-          </Text>
+        <View right>
+          <Text style={styles['text-price']}>{data.price}</Text>
           <Text style={styles['text-status']}>/per night</Text>
         </View>
       </View>
@@ -81,13 +80,13 @@ export const HotelCardLoading: React.FC = () => {
     <ContentLoader
       width='100%'
       height={160}
-      viewBox='0 0 450 160'
+      viewBox='0 24 450 160'
       backgroundColor='#f0f0f0'
       foregroundColor='#dedede'
     >
-      <Rect x='0' y='125' rx='4' ry='4' width='70%' height='9' />
-      <Rect x='0' y='138' rx='3' ry='3' width='20%' height='6' />
-      <Rect x='' y='0' rx='10' ry='10' width='100%' height='120' />
+      <Rect x='0' y='143' rx='4' ry='4' width='70%' height='9' />
+      <Rect x='0' y='157' rx='3' ry='3' width='20%' height='6' />
+      <Rect x='0' y='0' rx='10' ry='10' width='100%' height='138' />
     </ContentLoader>
   );
 };
