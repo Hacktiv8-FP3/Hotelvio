@@ -50,6 +50,12 @@ export const en = {
     },
     button: 'Swipe to purchase',
   },
+  history: {
+    title: 'History',
+  },
+  favorites: {
+    title: 'Favorites',
+  },
 };
 
 export const id = {
@@ -103,5 +109,11 @@ export const id = {
       total: 'Total',
     },
     button: 'Geser untuk membeli',
+  },
+  history: {
+    title: 'Riwayat',
+  },
+  favorites: {
+    title: 'Favorit',
   },
 };

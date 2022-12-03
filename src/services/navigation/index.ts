@@ -92,6 +92,25 @@ export class NavigationService implements IService {
       topBar: {
         title: { text: t.do('booking.title') },
       },
+      bottomTab: {
+        text: t.do('booking.title'),
+      },
+    });
+    screens.mergeOptions('History', {
+      topBar: {
+        title: { text: t.do('history.title') },
+      },
+      bottomTab: {
+        text: t.do('history.title'),
+      },
+    });
+    screens.mergeOptions('Favorites', {
+      topBar: {
+        title: { text: t.do('favorites.title') },
+      },
+      bottomTab: {
+        text: t.do('favorites.title'),
+      },
     });
   };
 }

@@ -31,7 +31,9 @@ const FilterInput: React.FC<Props> = ({ expanded, guestModalRef }) => {
   };
 
   return (
-    <ExpandableSection expanded={expanded ? expanded : true}>
+    <ExpandableSection
+      expanded={typeof expanded === 'boolean' ? expanded : true}
+    >
       <Row spread style={styles.inputField} marginV-s2>
         <Row style={{ width: '50%' }}>
           <DateTimePicker

@@ -14,7 +14,7 @@ export const History: ScreenComponent<{}> = observer(({ componentId }) => {
   return (
     <View flex bg-bgColor>
       <ScrollView contentInsetAdjustmentBehavior='always'>
-        <Section title='History' />
+        <Section />
         {histories.map((data, index) => (
           <HistoryCard data={data} componentId={componentId} key={index} />
         ))}

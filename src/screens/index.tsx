@@ -4,7 +4,6 @@ import { generateRNNScreens } from 'rnn-screens';
 import { withBottomTab } from '../services/navigation/options';
 import { withAppearance } from '../utils/hooks';
 import { withRedux } from '../utils/providers';
-import { Sample } from './_screen-sample';
 import { Booking } from './booking';
 import { FavoriteScreen } from './favorites-screen';
 import { History } from './history';
@@ -12,7 +11,6 @@ import { HistoryDetail } from './history-detail';
 import { HotelDetail } from './hotel-detail';
 import { Login } from './login';
 import { Main } from './main';
-import { Playground } from './playground';
 import { Settings } from './settings';
 
 export const screens = generateRNNScreens(
@@ -23,18 +21,11 @@ export const screens = generateRNNScreens(
         ...withBottomTab('Main', 'home'),
       },
     },
-    Playground: {
-      component: Playground,
-      options: {
-        topBar: { title: { text: 'Playground' } },
-        ...withBottomTab('Playground', 'construct'),
-      },
-    },
     Favorites: {
       component: FavoriteScreen,
       options: {
         // topBar: { title: { text: 'Favorites' } },
-        ...withBottomTab('Favorites', 'construct'),
+        ...withBottomTab('Favorites', 'heart'),
       },
     },
     Login: {
@@ -80,15 +71,6 @@ export const screens = generateRNNScreens(
       options: {
         topBar: { largeTitle: { visible: false } },
         bottomTabs: { visible: false },
-      },
-    },
-
-    Sample: {
-      component: Sample,
-      options: {
-        topBar: {
-          title: { text: 'Sample' },
-        },
       },
     },
   },

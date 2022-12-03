@@ -14,7 +14,7 @@ export const FavoriteScreen: ScreenComponent = observer(({ componentId }) => {
   return (
     <View flex bg-bgColor style={{ height: '100%' }}>
       <ScrollView contentInsetAdjustmentBehavior='always'>
-        <Section title='Favorite Hotel'>
+        <Section>
           {!favorites.length ? (
             <View
               style={{
