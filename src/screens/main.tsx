@@ -48,21 +48,21 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
   useEffect(() => {
     dispatch(
       getHotelByCategory({
-        category: debouncedSearch ? debouncedSearch + category : category,
+        category: debouncedSearch ? debouncedSearch : category,
         checkOutDate: {
           day: checkOut ? checkOut.getDate() : new Date().getDate() + 7,
-          month: checkOut ? checkOut.getMonth() : new Date().getMonth(),
+          month: checkOut ? checkOut.getMonth() + 1 : new Date().getMonth() + 1,
           year: checkOut ? checkOut.getFullYear() : new Date().getFullYear(),
         },
         checkInDate: {
           day: checkIn ? checkIn.getDate() : new Date().getDate(),
-          month: checkIn ? checkIn.getMonth() : new Date().getMonth(),
+          month: checkIn ? checkIn.getMonth() + 1 : new Date().getMonth() + 1,
           year: checkIn ? checkIn.getFullYear() : new Date().getFullYear(),
         },
         rooms: rooms,
       })
     );
-  }, [category, rooms, checkIn, checkOut]);
+  }, [category, rooms, checkIn, checkOut, debouncedSearch]);
 
   return (
     <View flex bg-bgColor>

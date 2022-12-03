@@ -2,7 +2,7 @@ export const en = {
   home: {
     title: 'Home',
     filter: {
-      search: 'Search',
+      search: 'Enter your destination',
       checkIn: 'Check in Date',
       checkOut: 'Check out Date',
       rooms: 'Rooms',
@@ -62,7 +62,7 @@ export const id = {
   home: {
     title: 'Beranda',
     filter: {
-      search: 'Cari',
+      search: 'Masukkan tujuan anda',
       checkIn: 'Tanggal Check in',
       checkOut: 'Tanggal Check out',
       rooms: 'Kamar',
