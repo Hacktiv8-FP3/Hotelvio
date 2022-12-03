@@ -67,7 +67,6 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
 
   useEffect(() => {
     dispatch(getHotelDetail(id));
-    console.log(id);
   }, []);
 
   return (

@@ -1,6 +1,7 @@
+import './_hydration';
+
 import React from 'react';
 
-import './_hydration';
 import { UIStore } from './ui';
 
 export class Stores {

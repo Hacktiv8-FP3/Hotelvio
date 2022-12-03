@@ -49,7 +49,6 @@ export const HotelCard: React.FC<{ data: HotelData; componentId: string }> = ({
           paddingTop: 3,
         }}
         onPress={() => {
-          console.log(data.id);
           isFavorite()
             ? dispatch(removeFavorite({ id: data.id }))
             : dispatch(addFavorite(data));

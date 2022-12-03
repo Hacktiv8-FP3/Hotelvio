@@ -1,9 +1,8 @@
 import React from 'react';
 
-import { OnStartService } from './onStart';
 import { NavigationService } from './navigation';
+import { OnStartService } from './onStart';
 import { TranslateService } from './translate';
-import { ApiService } from './api';
 
 export class Services {
   static async init(): PVoid {
@@ -20,7 +19,6 @@ export class Services {
 
   // services list
   t = new TranslateService();
-  api = new ApiService();
   nav = new NavigationService();
   onStart = new OnStartService();
 }

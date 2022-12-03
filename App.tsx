@@ -1,10 +1,10 @@
 import { LogBox } from 'react-native';
-import { Root, Screen, BottomTabs } from 'rnn-screens';
+import SplashScreen from 'react-native-splash-screen';
+import { BottomTabs, Root, Screen } from 'rnn-screens';
 
 import { screens } from './src/screens';
 import { Services } from './src/services';
 import { DesignSystem } from './src/utils/designSystem';
-import SplashScreen from 'react-native-splash-screen';
 
 LogBox.ignoreLogs(['Require', 'RCTBridge']);
 
@@ -26,8 +26,8 @@ export const App = () =>
   Root(
     BottomTabs([
       Screen(screens.get('Main')),
-      Screen(screens.get('History')),
       Screen(screens.get('Favorites')),
+      Screen(screens.get('History')),
       Screen(screens.get('Settings')),
     ])
   );

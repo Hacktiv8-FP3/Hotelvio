@@ -1,13 +1,14 @@
-import { Platform } from 'react-native';
 import merge from 'lodash/merge';
+import { Platform } from 'react-native';
+
+import { App } from '../../../App';
+import { screens } from '../../screens';
+import { services } from '..';
 import {
   navDefaultOptions,
   screenDefaultOptions,
   tabsDefaultOptions,
 } from './options';
-import { screens } from '../../screens';
-import { services } from '..';
-import { App } from '../../../App';
 
 export class NavigationService implements IService {
   private inited = false;

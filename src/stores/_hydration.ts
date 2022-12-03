@@ -1,5 +1,5 @@
-import { MMKV } from 'react-native-mmkv';
 import { configurePersistable } from 'mobx-persist-store';
+import { MMKV } from 'react-native-mmkv';
 
 // for safe AsyncStorage --> MMKV migration, checkout this https://github.com/mrousavy/react-native-mmkv/issues/52
 
