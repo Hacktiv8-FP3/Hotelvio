@@ -56,7 +56,7 @@ export const screens = generateRNNScreens(
     HistoryDetail: {
       component: HistoryDetail,
       options: {
-        bottomTabs: { visible: false },
+        topBar: { largeTitle: { visible: false } },
       },
     },
     Settings: {
