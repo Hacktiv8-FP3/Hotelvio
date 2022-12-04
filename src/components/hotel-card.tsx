@@ -35,10 +35,7 @@ export const HotelCard: React.FC<{ data: HotelData; componentId: string }> = ({
       style={[styles.container, styles.elevation]}
       onPress={push}
     >
-      <Image
-        source={require('../images/background2.jpg')}
-        style={styles.image}
-      />
+      <Image source={{ uri: data.image }} style={styles.image} />
       <TouchableOpacity
         style={{
           position: 'absolute',

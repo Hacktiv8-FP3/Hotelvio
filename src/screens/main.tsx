@@ -103,7 +103,12 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                   key={'topCity' + index}
                   text={item}
                   active={category === item}
-                  onPress={() => setCategory(item)}
+                  onPress={() => {
+                    if (category !== item) {
+                      return setCategory(item);
+                    }
+                    setCategory('Indonesia');
+                  }}
                 />
               ))}
           </ScrollView>
@@ -120,7 +125,12 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
                   key={'popularCity' + index}
                   text={item}
                   active={category === item}
-                  onPress={() => setCategory(item)}
+                  onPress={() => {
+                    if (category !== item) {
+                      return setCategory(item);
+                    }
+                    setCategory('Indonesia');
+                  }}
                 />
               ))}
           </ScrollView>
@@ -131,7 +141,7 @@ export const Main: ScreenComponent = observer(({ componentId }) => {
             <HotelCardLoading />
           ) : (
             !!data.length &&
-            data.map((_data: any) => (
+            data.map((_data) => (
               <HotelCard
                 componentId={componentId}
                 key={'main' + _data.id}

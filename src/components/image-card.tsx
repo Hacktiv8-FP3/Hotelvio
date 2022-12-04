@@ -6,7 +6,7 @@ import { colors } from '../utils/color';
 
 interface Props {
   text?: string;
-  onPress?: any;
+  onPress?: () => void;
   active: Boolean;
 }
 export const ImageCard = ({ text = 'Bali', onPress, active }: Props) => {
@@ -56,6 +56,6 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   active: {
-    backgroundColor: 'red',
+    backgroundColor: colors.grayBorder,
   },
 });
