@@ -130,8 +130,8 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
               <View>
                 <Text style={iOSUIKit.subhead}>Email</Text>
                 <TextInput
-                  value={userState?.email}
-                  editable={editable}
+                  value={user?.email}
+                  editable={false}
                   placeholder='email'
                   style={styles.input}
                   onChangeText={(text: any) =>
@@ -145,7 +145,7 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
               <View>
                 <Text style={iOSUIKit.subhead}>First Name</Text>
                 <TextInput
-                  value={userState?.firstName}
+                  value={user?.firstName}
                   editable={editable}
                   placeholder='First Name'
                   style={styles.input}
@@ -160,7 +160,7 @@ export const Settings: ScreenComponent = observer(({ componentId }) => {
               <View>
                 <Text style={iOSUIKit.subhead}>Last Name</Text>
                 <TextInput
-                  value={userState?.lastName}
+                  value={user?.lastName}
                   editable={editable}
                   placeholder='Last Name'
                   style={styles.input}
