@@ -20,8 +20,8 @@ export const en = {
         },
       },
     },
-    cities: 'Kota-kota di Indonesia',
-    popular: 'Tujuan Terpopuler',
+    cities: 'Cities in Indonesia',
+    popular: 'Popular Destinations',
   },
   hotelDetail: {
     book: 'Book this hotel',
@@ -80,8 +80,8 @@ export const id = {
         },
       },
     },
-    cities: 'Cities in Indonesia',
-    popular: 'Popular Destinations',
+    cities: 'Kota-kota di Indonesia',
+    popular: 'Tujuan Terpopuler',
   },
   hotelDetail: {
     book: 'Pesan hotel ini',
