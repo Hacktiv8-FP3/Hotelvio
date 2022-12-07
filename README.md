@@ -1,3 +1,7 @@
+## Login Credentials
+email: 'user@gmail.com',
+password: 'user123'
+
 <p align="center">
   <img src="https://xxx-files.ggc.team/oss/rnn-starter/cover.png" width="80%" title="Logo">
 </p>
