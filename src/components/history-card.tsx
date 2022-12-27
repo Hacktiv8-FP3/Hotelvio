@@ -24,10 +24,7 @@ export const HistoryCard = ({
   return (
     <View style={styles.container}>
       <View style={styles['image-container']}>
-        <Image
-          source={require('../images/background2.jpg')}
-          style={styles.image}
-        />
+        <Image source={{ uri: data.hotel.image }} style={styles.image} />
         <Text style={{ ...(iOSUIKit.bodyEmphasized as {}), ...styles.text }}>
           {data.hotel.name}
         </Text>
