@@ -20,6 +20,7 @@ const fetchDetail = (id: string) => {
         location: data.summary.location.address.addressLine,
         caption: data.summary.policies.checkinInstructions[0],
         rating: data.summary.overview.propertyRating.rating,
+        images: data.propertyGallery.images.map((image: any) => image.image),
       };
       return resData;
     });

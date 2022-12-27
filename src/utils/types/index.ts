@@ -11,6 +11,12 @@ export type HotelDetail = {
   name: string;
   location: string;
   rating: number;
+  images: HotelImage[];
+};
+
+export type HotelImage = {
+  url: string;
+  description: string;
 };
 
 export type History = {

@@ -1,7 +1,8 @@
 import React, { PropsWithChildren, useEffect, useRef } from 'react';
-import { Image, ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Modalize, useModalize } from 'react-native-modalize';
 import Animated from 'react-native-reanimated';
+import Carousel from 'react-native-snap-carousel';
 import { iOSUIKit } from 'react-native-typography';
 import { Text, View } from 'react-native-ui-lib';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -9,6 +10,7 @@ import { ScreenComponent } from 'rnn-screens';
 
 import AgeModal from '../components/age-modal';
 import { Button } from '../components/button';
+import CarouselItem from '../components/carousel-item';
 import { CommentRate } from '../components/comment-rate';
 import FilterInput from '../components/filter-input';
 import { GuestModal } from '../components/guest-modal';
@@ -73,9 +75,12 @@ export const HotelDetail: ScreenComponent<HotelDetailProps> = ({
     <View style={{ backgroundColor: 'white', minHeight: '100%' }}>
       <ScrollView contentInsetAdjustmentBehavior='always'>
         <View style={styles.container}>
-          <Image
-            source={require('../images/background3.jpg')}
-            style={styles.image}
+          <Carousel
+            layout={'default'}
+            data={data?.images ? data.images : []}
+            renderItem={CarouselItem}
+            sliderWidth={400}
+            itemWidth={400}
           />
         </View>
         <View style={styles['child-container']}>
