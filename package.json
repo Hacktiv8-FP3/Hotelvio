@@ -45,7 +45,7 @@
     "numeral": "^2.0.6",
     "react": "18.1.0",
     "react-content-loader": "^6.2.0",
-    "react-native": "0.70.3",
+    "react-native": "0.70.5",
     "react-native-fast-image": "^8.6.1",
     "react-native-gesture-handler": "^2.7.1",
     "react-native-mmkv": "^2.5.1",
